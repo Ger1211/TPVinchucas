@@ -16,12 +16,14 @@ public class MuestraTestCase {
 	private Muestra muestra;
 	private Ubicacion ubicacion;
 	private Usuario usuario;
+	private Verificacion verificacion;
 
 	@Before
 	public void setUp() throws Exception {
 		ubicacion = mock(Ubicacion.class);
 		usuario  =mock(Usuario.class);
 		muestra = new Muestra("a",ubicacion,usuario);
+		verificacion  = new Verificacion("a",usuario);
 	}
 
 	@Test
@@ -37,5 +39,10 @@ public class MuestraTestCase {
 	@Test
 	public void testUsuarioMuestra() {
 		assertEquals(usuario,muestra.getUsuarioMuestra());
+	}
+	
+	@Test
+	public void testVerificacionDeUnaMuestraNueva() {
+		assertTrue(muestra.contiene(verificacion));
 	}
 }

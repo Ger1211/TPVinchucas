@@ -1,19 +1,38 @@
 package muestra;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ubicacion.Ubicacion;
 import usuario.Usuario;
 
 public class Muestra {
+	
+	/*	a = Vinchuca;
+	 *  b = Chinche Foliada
+	 *  c = Phtia-Chinche
+	 *  d = Ninguna
+	 *  e = Imagen poco clara
+	 */
 
 	private String tipoMuestra;
 	private Ubicacion ubicacion;
 	private Usuario usuario;
+	private List<Verificacion> verificaciones;
 
 	public Muestra(String tipoMuestra, Ubicacion ubicacion, Usuario usuario) {
 		// TODO Auto-generated constructor stub
 		this.tipoMuestra = tipoMuestra;
 		this.ubicacion = ubicacion;
 		this.usuario = usuario;
+		
+		// Creacion y agregado de la verificacion base:
+		
+		this.verificaciones = new ArrayList<>();
+		Verificacion verificacion = new Verificacion(tipoMuestra,usuario);
+		verificaciones.add(verificacion);
+		
+		
 	}
 
 	public String getTipoMuestra() {
@@ -29,6 +48,15 @@ public class Muestra {
 	public Usuario getUsuarioMuestra() {
 		// TODO Auto-generated method stub
 		return this.usuario;
+	}
+
+	public Boolean contiene(Verificacion verificacion) {
+		// TODO Auto-generated method stub
+		Boolean resultado = false;
+		for(Verificacion verificacionMuestra :verificaciones) {
+				resultado = resultado || verificacionMuestra.esIgual(verificacion);
+			}
+		return resultado;
 	}
 
 }
