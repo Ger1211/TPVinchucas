@@ -14,7 +14,7 @@ public class Verificacion {
 	}
 	
 	public Boolean esIgual(Verificacion verificacion) {
-		return verificacion.getUsuarioVerificacion() == this.usuario;
+		return this.tipoDeMuestra.equals(verificacion.getTipoMuestra()) && verificacion.getUsuarioVerificacion() == this.usuario ;
 	}
 	
 	public String getTipoMuestra() {
