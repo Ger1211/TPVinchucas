@@ -1,5 +1,7 @@
 package usuario;
 
+import muestra.Muestra;
+
 public class Usuario {
 
 	private String alias;
@@ -9,6 +11,7 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 		this.alias = alias;
 		this.tipoDeUsuario = tipoDeUsuario;
+	
 	}
 
 	public String getAlias() {
@@ -25,5 +28,18 @@ public class Usuario {
 		// TODO Auto-generated method stub
 		this.tipoDeUsuario = tipoDeUsuario;
 	}
+
+	public void enviarMuestra(String tipoDeMuestra) {
+		// TODO Auto-generated method stub
+		this.tipoDeUsuario.enviarMuestra(tipoDeMuestra, this);
+	}
+
+	public void verificarMuestra(String tipoDeMuestra,Muestra muestra) {
+		// TODO Auto-generated method stub
+		this.tipoDeUsuario.verificarMuestra(tipoDeMuestra,this,muestra);
+		
+	}
+
+	
 
 }
