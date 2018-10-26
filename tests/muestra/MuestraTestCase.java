@@ -25,7 +25,6 @@ public class MuestraTestCase {
 		usuario  =mock(Usuario.class);
 		verificacion  = mock(Verificacion.class);
 		muestra = new Muestra("a",ubicacion,usuario,verificacion);
-		verificacion = mock(Verificacion.class);
 		verificacion2 = mock(Verificacion.class);
 
 	}
@@ -50,8 +49,6 @@ public class MuestraTestCase {
 		assertTrue(muestra.contiene(verificacion));
 	}
 	
-
-	//revisar no funciona
 
 	@Test
 	public void testAgregarVerificacionAMuestra() {
