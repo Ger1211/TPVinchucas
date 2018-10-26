@@ -48,6 +48,7 @@ public class MuestraTestCase {
 		assertTrue(muestra.contiene(verificacion));
 	}
 	
+	//revisar no funciona
 	@Test
 	public void testAgregarVerificacionAMuestra() {
 		muestra.agregarVerificacion(verificacion2);
