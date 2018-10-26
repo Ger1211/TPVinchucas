@@ -54,4 +54,8 @@ public class Muestra {
 		return verificaciones.contains(verificacion);
 	}
 
+	public void agregarVerificacion(Verificacion verificacion) {
+		// TODO Auto-generated method stub
+		this.verificaciones.add(verificacion);
+	}
 }
