@@ -20,7 +20,7 @@ public class Muestra {
 	private Usuario usuario;
 	private List<Verificacion> verificaciones;
 
-	public Muestra(String tipoMuestra, Ubicacion ubicacion, Usuario usuario) {
+	public Muestra(String tipoMuestra, Ubicacion ubicacion, Usuario usuario, Verificacion verificacion) {
 		// TODO Auto-generated constructor stub
 		this.tipoMuestra = tipoMuestra;
 		this.ubicacion = ubicacion;
@@ -29,7 +29,6 @@ public class Muestra {
 		// Creacion y agregado de la verificacion base:
 		
 		this.verificaciones = new ArrayList<>();
-		Verificacion verificacion = new Verificacion(tipoMuestra,usuario);
 		verificaciones.add(verificacion);
 		
 		
@@ -52,11 +51,7 @@ public class Muestra {
 
 	public Boolean contiene(Verificacion verificacion) {
 		// TODO Auto-generated method stub
-		Boolean resultado = false;
-		for(Verificacion verificacionMuestra :verificaciones) {
-				resultado = resultado || verificacionMuestra.esIgual(verificacion);
-			}
-		return resultado;
+		return verificaciones.contains(verificacion);
 	}
 
 }

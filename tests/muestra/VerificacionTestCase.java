@@ -10,14 +10,13 @@ import usuario.Usuario;
 
 public class VerificacionTestCase {
 
-	private Verificacion verificacion1,verificacion2;
+	private Verificacion verificacion1;
 	private Usuario usuario;
 
 	@Before
 	public void setUp() throws Exception {
 		usuario = mock(Usuario.class);
 		verificacion1 = new Verificacion("a",usuario);
-		verificacion2 = new Verificacion("a",usuario);
 	}
 
 	@Test
@@ -30,9 +29,5 @@ public class VerificacionTestCase {
 		assertEquals(usuario,verificacion1.getUsuarioVerificacion());
 	}
 	
-	@Test
-	public void testDosVerificacionesSonIguales() {
-		assertTrue(verificacion1.esIgual(verificacion2));
-	}
 
 }

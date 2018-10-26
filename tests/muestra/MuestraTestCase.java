@@ -22,8 +22,8 @@ public class MuestraTestCase {
 	public void setUp() throws Exception {
 		ubicacion = mock(Ubicacion.class);
 		usuario  =mock(Usuario.class);
-		muestra = new Muestra("a",ubicacion,usuario);
-		verificacion  = new Verificacion("a",usuario);
+		verificacion = mock(Verificacion.class);
+		muestra = new Muestra("a",ubicacion,usuario,verificacion);
 	}
 
 	@Test
