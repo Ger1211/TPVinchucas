@@ -29,5 +29,4 @@ public class VerificacionTestCase {
 		assertEquals(usuario,verificacion1.getUsuarioVerificacion());
 	}
 	
-
 }

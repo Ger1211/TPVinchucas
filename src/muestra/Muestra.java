@@ -51,7 +51,12 @@ public class Muestra {
 
 	public Boolean contiene(Verificacion verificacion) {
 		// TODO Auto-generated method stub
-		return verificaciones.contains(verificacion);
+		return this.verificaciones.contains(verificacion);
+	}
+
+	public void agregarVerificacion(Verificacion verificacion) {
+		// TODO Auto-generated method stub
+		this.verificaciones.add(verificacion);		
 	}
 
 	public void agregarVerificacion(Verificacion verificacion) {
