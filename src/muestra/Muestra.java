@@ -58,4 +58,13 @@ public class Muestra {
 		// TODO Auto-generated method stub
 		this.verificaciones.add(verificacion);
 	}
+
+	public Boolean usuarioVerifico(Usuario usuario) {
+		// TODO Auto-generated method stub
+		Boolean resultado = false;
+		for(Verificacion verificacion: verificaciones) {
+			resultado = resultado || verificacion.getUsuarioVerificacion() == usuario;
+		}
+		return resultado;
+	}
 }
