@@ -67,4 +67,15 @@ public class Muestra {
 		}
 		return resultado;
 	}
+
+	public List<Muestra> muestrasAMenosDe(Double kilometros, List<Muestra> muestras) {
+		// TODO Auto-generated method stub
+		ArrayList<Muestra> resultado = new ArrayList<>();
+		for(Muestra muestra : muestras) {
+			if(this.getUbicacion().ubicacionEstaAMenosDe(kilometros, muestra.getUbicacion())) {
+				resultado.add(muestra);
+			}
+		}
+		return resultado;
+	}
 }

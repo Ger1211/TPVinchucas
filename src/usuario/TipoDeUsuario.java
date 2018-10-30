@@ -3,7 +3,6 @@ package usuario;
 import muestra.Muestra;
 import muestra.Verificacion;
 import sistema.Sistema;
-import ubicacion.Ubicacion;
 
 public class TipoDeUsuario {
 	
@@ -20,12 +19,9 @@ public class TipoDeUsuario {
 		
 	}
 
-	public void enviarMuestra(String tipoDeMuestra, Usuario usuario) {
+	public void enviarMuestra(Muestra muestra) {
 		// TODO Auto-generated method stub
-		Ubicacion ubicacion = new Ubicacion();
-		Verificacion verificacion = new Verificacion(tipoDeMuestra,usuario);
-		Muestra muestra = new Muestra(tipoDeMuestra,ubicacion,usuario,verificacion);
-		sistema.enviarMuestra(muestra);
+		sistema.enviarMuestraAlSistema(muestra);
 	}
 
 }
