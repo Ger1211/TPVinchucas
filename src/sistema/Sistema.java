@@ -12,7 +12,7 @@ public class Sistema {
 		this.muestras = new ArrayList<>();
 	}
 
-	public void enviarMuestra(Muestra muestra) {
+	public void enviarMuestraAlSistema(Muestra muestra) {
 		// TODO Auto-generated method stub
 		this.muestras.add(muestra);
 	}

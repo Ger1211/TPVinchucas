@@ -1,6 +1,8 @@
 package usuario;
 
 import muestra.Muestra;
+import muestra.Verificacion;
+import ubicacion.Ubicacion;
 
 public class Usuario {
 
@@ -31,7 +33,10 @@ public class Usuario {
 
 	public void enviarMuestra(String tipoDeMuestra) {
 		// TODO Auto-generated method stub
-		this.tipoDeUsuario.enviarMuestra(tipoDeMuestra, this);
+		Ubicacion ubicacion = new Ubicacion();
+		Verificacion verificacion = new Verificacion(tipoDeMuestra,this);
+		Muestra muestra = new Muestra(tipoDeMuestra,ubicacion,this,verificacion);
+		this.tipoDeUsuario.enviarMuestra(muestra);
 	}
 
 	public void verificarMuestra(String tipoDeMuestra,Muestra muestra) {

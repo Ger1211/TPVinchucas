@@ -39,12 +39,6 @@ public class UsuarioTestCase {
 	}
 	
 	@Test
-	public void testEnviarUnaMuestra() {
-		usuario.enviarMuestra("a");
-		verify(tipoDeUsuario1).enviarMuestra("a",usuario);
-	}
-	
-	@Test
 	public void testVerificarMuestra() {
 		usuario.verificarMuestra("a",muestra);
 		verify(tipoDeUsuario1).verificarMuestra("a",usuario,muestra);
