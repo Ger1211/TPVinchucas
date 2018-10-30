@@ -17,4 +17,9 @@ public class Sistema {
 		this.muestras.add(muestra);
 	}
 
+	public List<Muestra> getMuestras() {
+		// TODO Auto-generated method stub
+		return this.muestras;
+	}
+
 }

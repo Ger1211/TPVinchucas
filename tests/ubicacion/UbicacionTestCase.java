@@ -10,14 +10,16 @@ import org.junit.Test;
 
 public class UbicacionTestCase {
 
-	private Ubicacion ubicacion1,ubicacion2,ubicacion3;
+	private Ubicacion ubicacion1,ubicacion2,ubicacion3,ubicacion4;
 	private List<Ubicacion> ubicaciones,resultado;
+	
 
 	@Before
 	public void setUp() throws Exception {
 		ubicacion1 = new Ubicacion(10d,20d);
 		ubicacion2 = new Ubicacion(20d,10d);
 		ubicacion3 = new Ubicacion(10d,20d);
+		ubicacion4 =new Ubicacion();
 		ubicaciones = new ArrayList<>();
 		ubicaciones.add(ubicacion2);
 		ubicaciones.add(ubicacion3);
@@ -25,6 +27,12 @@ public class UbicacionTestCase {
 		resultado.add(ubicacion3);
 	
 		
+	}
+	
+	@Test
+	public void testUbicacionCero() {
+		assertEquals(0d,ubicacion4.getLatitud(),0);
+		assertEquals(0d,ubicacion4.getLongitud(),0);
 	}
 
 	@Test
