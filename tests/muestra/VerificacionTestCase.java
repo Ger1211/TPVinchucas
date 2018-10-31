@@ -29,4 +29,10 @@ public class VerificacionTestCase {
 		assertEquals(usuario,verificacion1.getUsuarioVerificacion());
 	}
 	
+	@Test
+	public void testVerificacionPuntosDeUsuario() {
+		verificacion1.puntosDeVerificacion();
+		verify(usuario).puntosDeUsuario();
+	}
+	
 }

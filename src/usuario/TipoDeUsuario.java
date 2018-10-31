@@ -4,7 +4,7 @@ import muestra.Muestra;
 import muestra.Verificacion;
 import sistema.Sistema;
 
-public class TipoDeUsuario {
+public abstract class TipoDeUsuario {
 	
 	private Sistema sistema;
 
@@ -23,5 +23,7 @@ public class TipoDeUsuario {
 		// TODO Auto-generated method stub
 		sistema.enviarMuestraAlSistema(muestra);
 	}
+
+	public abstract Integer puntosDeUsuario();
 
 }

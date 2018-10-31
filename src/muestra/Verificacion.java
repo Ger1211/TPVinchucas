@@ -26,4 +26,9 @@ public class Verificacion {
 		return this.usuario;
 	}
 
+	public Integer puntosDeVerificacion() {
+		// TODO Auto-generated method stub
+		return this.getUsuarioVerificacion().puntosDeUsuario();
+	}
+
 }
