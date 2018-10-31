@@ -49,6 +49,10 @@ public class Muestra {
 		return this.usuario;
 	}
 
+	public List<Verificacion> getVerificaciones() {
+		return this.verificaciones;
+	}
+	
 	public Boolean contiene(Verificacion verificacion) {
 		// TODO Auto-generated method stub
 		return this.verificaciones.contains(verificacion);
@@ -102,4 +106,10 @@ public class Muestra {
 		}
 		return resultado;
 	}
+
+	public Boolean usuarioEnvioMuestra(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return this.verificaciones.get(0).getUsuarioVerificacion() == usuario;
+	}
+
 }

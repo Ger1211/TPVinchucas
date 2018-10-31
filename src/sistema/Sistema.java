@@ -1,6 +1,5 @@
 package sistema;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import muestra.Muestra;
@@ -10,8 +9,8 @@ public class Sistema {
 	private List<Muestra> muestras;
 	private List<Usuario> usuarios; 
 	
-	public Sistema(List<Usuario>usuarios) {
-		this.muestras = new ArrayList<>();
+	public Sistema(List<Usuario>usuarios, List<Muestra> muestras) {
+		this.muestras = muestras;
 		this.usuarios = usuarios;
 	}
 
@@ -28,7 +27,7 @@ public class Sistema {
 	public void modificarRangoUsuarios() {
 		// TODO Auto-generated method stub
 		for(Usuario usuario :usuarios) {
-			if(usuario.cantidadDeEnvios()>10 && usuario.cantidadDeRevisiones()>20) {
+			if(usuario.cantidadDeEnvios(muestras)>10 && usuario.cantidadDeRevisiones(muestras)>20) {
 				usuario.ascenderUsuario();
 			}
 			else  {
