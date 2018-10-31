@@ -22,6 +22,7 @@ public class MuestraTestCase {
 	private Verificacion verificacion;
 	private Verificacion verificacion2;
 	private Verificacion verificacion3 ;
+	private Verificacion verificacion4;
 	private List<Muestra> muestras,resultado;
 
 	@Before
@@ -41,6 +42,7 @@ public class MuestraTestCase {
 		muestras.add(muestra3);
 		resultado = new ArrayList<>();
 		resultado.add(muestra3);
+		verificacion4 = mock(Verificacion.class);
 	}
 
 	@Test
@@ -81,4 +83,31 @@ public class MuestraTestCase {
 		when(ubicacion.ubicacionEstaAMenosDe(10d, ubicacion)).thenReturn(false);
 		assertEquals(resultado,muestra1.muestrasAMenosDe(10d,muestras));
 	}
+	
+	@Test
+	public void testVerificacionDeMuestraBaja() {
+		when(verificacion.puntosDeVerificacion()).thenReturn(1);
+		assertTrue(muestra1.nivelDeVerificacion().equals("Bajo"));
+	}
+	
+	@Test
+	public void testVerificacionDeMuestraMedia() {
+		when(verificacion.puntosDeVerificacion()).thenReturn(1);
+		when(verificacion2.puntosDeVerificacion()).thenReturn(1);
+		muestra1.agregarVerificacion(verificacion2);
+		assertTrue(muestra1.nivelDeVerificacion().equals("Medio"));
+	}
+	
+
+	@Test
+	public void testVerificacionDeMuestraAlta() {
+		muestra1.agregarVerificacion(verificacion2);
+		muestra1.agregarVerificacion(verificacion4);
+		when(verificacion.puntosDeVerificacion()).thenReturn(1);
+		when(verificacion2.puntosDeVerificacion()).thenReturn(1);
+		when(verificacion4.puntosDeVerificacion()).thenReturn(1);
+		assertEquals("Alto",muestra1.nivelDeVerificacion());
+	}
+	
+	
 }

@@ -46,6 +46,31 @@ public class Usuario {
 		}
 	}
 
+	public Integer puntosDeUsuario() {
+		// TODO Auto-generated method stub
+		return this.tipoDeUsuario.puntosDeUsuario();
+	}
+
+	public Integer cantidadDeEnvios() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public Integer cantidadDeRevisiones() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void ascenderUsuario() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void descenderUsuario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 	

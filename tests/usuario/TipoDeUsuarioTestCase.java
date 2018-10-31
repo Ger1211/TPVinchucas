@@ -17,7 +17,7 @@ public class TipoDeUsuarioTestCase {
 	public void setUp() throws Exception {
 			sistema = mock(Sistema.class);
 			muestra = mock(Muestra.class);
-			tipoDeUsuario = new TipoDeUsuario(sistema);
+			tipoDeUsuario = new UsuarioBasico(sistema);
 	}
 
 	@Test

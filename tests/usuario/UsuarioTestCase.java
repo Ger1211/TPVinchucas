@@ -43,4 +43,10 @@ public class UsuarioTestCase {
 		usuario.verificarMuestra("a",muestra);
 		verify(tipoDeUsuario1).verificarMuestra("a",usuario,muestra);
 	}
+	
+	@Test
+	public void testPuntosDeVerificacionDeTipoDeUsuario() {
+		usuario.puntosDeUsuario();
+		verify(tipoDeUsuario1).puntosDeUsuario();
+	}
 }

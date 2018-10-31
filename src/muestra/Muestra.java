@@ -78,4 +78,28 @@ public class Muestra {
 		}
 		return resultado;
 	}
+
+	public String nivelDeVerificacion() {
+		// TODO Auto-generated method stub
+		String resultado = "";
+		if(this.cantDeVerificaciones()<2) {
+			resultado = "Bajo";
+		}
+		if(this.cantDeVerificaciones() ==2){
+			resultado = "Medio";
+		}
+		if(this.cantDeVerificaciones()> 2) {
+			resultado = "Alto";
+		}
+		return resultado;
+	}
+
+	private Integer cantDeVerificaciones() {
+		// TODO Auto-generated method stub
+		Integer resultado = 0;
+		for(Verificacion verificacion : this.verificaciones) {
+			 resultado += verificacion.puntosDeVerificacion();
+		}
+		return resultado;
+	}
 }
