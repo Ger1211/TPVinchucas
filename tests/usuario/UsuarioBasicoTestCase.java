@@ -29,13 +29,13 @@ public class UsuarioBasicoTestCase {
 	@Test
 	public void testAscenderUsuarioBasico() {
 		usuario.ascenderUsuario();
-		assertTrue(usuario.getTipoDeUsuario() != usuarioBasico);
+		assertFalse (usuario.getTipoDeUsuario().getClass().equals(usuarioBasico.getClass()));
 	}
 	
 	@Test
 	public void testDescenderUsuarioBasico() {
 		usuario.descenderUsuario();
-		assertTrue(usuario.getTipoDeUsuario() == usuarioBasico);
+		assertTrue(usuario.getTipoDeUsuario().getClass().equals(usuarioBasico.getClass()));
 	}
 
 }
