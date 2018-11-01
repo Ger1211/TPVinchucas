@@ -13,4 +13,16 @@ public class UsuarioEspecialista extends TipoDeUsuario {
 	public Integer puntosDeUsuario() {
 		return 3;
 	}
+
+	@Override
+	public void ascenderUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		// Los usuarios especialistas no ascienden.
+	}
+
+	@Override
+	public void descenderUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		// Los usuarios especialistas no descienden.
+	}
 }

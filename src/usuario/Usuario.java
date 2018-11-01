@@ -1,5 +1,7 @@
 package usuario;
 
+import java.util.List;
+
 import muestra.Muestra;
 import muestra.Verificacion;
 import ubicacion.Ubicacion;
@@ -51,24 +53,24 @@ public class Usuario {
 		return this.tipoDeUsuario.puntosDeUsuario();
 	}
 
-	public Integer cantidadDeEnvios() {
+	public Integer cantidadDeEnvios(List<Muestra> muestras) {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.tipoDeUsuario.cantidadDeEnvios(this,muestras);
 	}
 
-	public Integer cantidadDeRevisiones() {
+	public Integer cantidadDeRevisiones(List<Muestra> muestras) {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.tipoDeUsuario.cantidadDeRevisiones(this, muestras);
 	}
 
 	public void ascenderUsuario() {
 		// TODO Auto-generated method stub
-		
+		this.tipoDeUsuario.ascenderUsuario(this);
 	}
 
 	public void descenderUsuario() {
 		// TODO Auto-generated method stub
-		
+		this.tipoDeUsuario.descenderUsuario(this);
 	}
 
 	

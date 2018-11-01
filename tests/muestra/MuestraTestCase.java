@@ -24,6 +24,7 @@ public class MuestraTestCase {
 	private Verificacion verificacion3 ;
 	private Verificacion verificacion4;
 	private List<Muestra> muestras,resultado;
+	private List<Verificacion> resultadoVerificaciones;
 
 	@Before
 	public void setUp() throws Exception {
@@ -43,6 +44,8 @@ public class MuestraTestCase {
 		resultado = new ArrayList<>();
 		resultado.add(muestra3);
 		verificacion4 = mock(Verificacion.class);
+		resultadoVerificaciones = new ArrayList<>();
+		resultadoVerificaciones.add(verificacion);
 	}
 
 	@Test
@@ -58,6 +61,11 @@ public class MuestraTestCase {
 	@Test
 	public void testUsuarioMuestra() {
 		assertEquals(usuario1,muestra1.getUsuarioMuestra());
+	}
+
+	@Test
+	public void testVerificaciones() {
+		assertEquals(resultadoVerificaciones,muestra1.getVerificaciones());
 	}
 	
 	@Test
@@ -109,5 +117,11 @@ public class MuestraTestCase {
 		assertEquals("Alto",muestra1.nivelDeVerificacion());
 	}
 	
+	@Test
+	public void testUsuarioEnvioMuestra() {
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		assertTrue(muestra1.usuarioEnvioMuestra(usuario1));
+		assertFalse(muestra1.usuarioEnvioMuestra(usuario2));
+	}
 	
 }

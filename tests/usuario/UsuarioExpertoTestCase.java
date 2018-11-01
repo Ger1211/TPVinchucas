@@ -11,11 +11,13 @@ public class UsuarioExpertoTestCase {
 
 	private TipoDeUsuario usuarioExperto;
 	private Sistema sistema;
-
+	private Usuario usuario;
+	
 	@Before
 	public void setUp() throws Exception {
 		sistema = mock(Sistema.class);
 		usuarioExperto = new UsuarioExperto(sistema);
+		usuario = new Usuario("German",usuarioExperto);
 	}
 
 	@Test
@@ -23,4 +25,15 @@ public class UsuarioExpertoTestCase {
 		assertEquals(3,usuarioExperto.puntosDeUsuario(),0);
 	}
 
+	@Test
+	public void testDescenderUsuarioExperto() {
+		usuario.descenderUsuario();
+		assertTrue(usuario.getTipoDeUsuario() != usuarioExperto);
+	}
+	
+	@Test
+	public void testAscenderUsuarioExperto() {
+		usuario.ascenderUsuario();
+		assertTrue(usuario.getTipoDeUsuario() == usuarioExperto);
+	}
 }

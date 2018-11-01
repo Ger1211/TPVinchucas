@@ -18,14 +18,17 @@ public class SistemaTestCase {
 	private Muestra muestra;
 	private Usuario usuario;
 	private List<Usuario> usuarios;
+	private List<Muestra> muestras;
 
 	@Before
 	public void setUp() throws Exception {
+		muestras = new ArrayList<>();
 		usuarios = new ArrayList<>();
 		usuario = mock(Usuario.class);
 		usuarios.add(usuario);
-		sistema = new Sistema(usuarios);
 		muestra = mock(Muestra.class);
+		muestras.add(muestra);
+		sistema = new Sistema(usuarios,muestras);
 
 	}
 
@@ -38,19 +41,19 @@ public class SistemaTestCase {
 	
 	@Test
 	public void testUsuarioCambioAExperto(){
-		when(usuario.cantidadDeEnvios()).thenReturn(11);
-		when(usuario.cantidadDeRevisiones()).thenReturn(21);
+		when(usuario.cantidadDeEnvios(muestras)).thenReturn(11);
+		when(usuario.cantidadDeRevisiones(muestras)).thenReturn(21);
 		sistema.modificarRangoUsuarios();
-		verify(usuario).cantidadDeEnvios();
-		verify(usuario).cantidadDeRevisiones();
+		verify(usuario).cantidadDeEnvios(muestras);
+		verify(usuario).cantidadDeRevisiones(muestras);
 		verify(usuario).ascenderUsuario();
 	}
 	
 	@Test
 	public void testUsuarioCambioABasico() {
-		when(usuario.cantidadDeEnvios()).thenReturn(5);
+		when(usuario.cantidadDeEnvios(muestras)).thenReturn(5);
 		sistema.modificarRangoUsuarios();
-		verify(usuario).cantidadDeEnvios();
+		verify(usuario).cantidadDeEnvios(muestras);
 		verify(usuario).descenderUsuario();
 	}
 
