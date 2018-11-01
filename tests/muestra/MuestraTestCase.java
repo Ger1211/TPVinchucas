@@ -24,14 +24,16 @@ public class MuestraTestCase {
 	private Verificacion verificacion;
 	private Verificacion verificacion2;
 	private Verificacion verificacion3 ;
-	private Verificacion verificacion4;
 	private List<Muestra> muestras,resultado;
 	private List<Verificacion> resultadoVerificaciones;
 	private LocalDate fechaVerificacion;
 	private TipoDeUsuario tipoDeUsuario;
+	private NivelDeVerificacion nivelDeVerificacion,nivelDeVerificacionBajo;
 
 	@Before
 	public void setUp() throws Exception {
+		nivelDeVerificacion = mock(NivelDeVerificacion.class);
+		nivelDeVerificacionBajo = new NivelDeVerificacionBajo();
 		tipoDeUsuario = mock(TipoDeUsuario.class);
 		fechaVerificacion = LocalDate.now();
 		ubicacion = mock(Ubicacion.class);
@@ -39,17 +41,16 @@ public class MuestraTestCase {
 		usuario1  =mock(Usuario.class);
 		usuario2 = mock(Usuario.class);
 		verificacion  = mock(Verificacion.class);
-		muestra1 = new Muestra("a",ubicacion,usuario1,verificacion);
+		muestra1 = new Muestra("a",ubicacion,usuario1,verificacion,nivelDeVerificacion);
 		verificacion2 = mock(Verificacion.class);
 		verificacion3 = new Verificacion("a",usuario1,fechaVerificacion);
-		muestra2 = new Muestra("a",ubicacion,usuario1,verificacion3);
-		muestra3 = new Muestra("a",otraUbicacion,usuario1,verificacion);
+		muestra2 = new Muestra("a",ubicacion,usuario1,verificacion3,nivelDeVerificacion);
+		muestra3 = new Muestra("a",otraUbicacion,usuario1,verificacion,nivelDeVerificacionBajo);
 		muestras = new ArrayList<>();
 		muestras.add(muestra2);
 		muestras.add(muestra3);
 		resultado = new ArrayList<>();
 		resultado.add(muestra3);
-		verificacion4 = mock(Verificacion.class);
 		resultadoVerificaciones = new ArrayList<>();
 		resultadoVerificaciones.add(verificacion);
 	}
@@ -75,6 +76,11 @@ public class MuestraTestCase {
 	}
 	
 	@Test
+	public void testNivelDeVerificacion() {
+		assertEquals(nivelDeVerificacion,muestra1.getNivelDeVerificacion());
+	}
+	
+	@Test
 	public void testVerificacionDeUnaMuestraNueva() {
 		assertTrue(muestra1.contiene(verificacion));
 	}
@@ -82,7 +88,7 @@ public class MuestraTestCase {
 	@Test
 	public void testAgregarVerificacionAMuestra() {
 		muestra1.agregarVerificacion(verificacion2);
-		assertTrue(muestra1.contiene(verificacion2));
+		verify(nivelDeVerificacion).agregarVerificacion(verificacion2,muestra1);
 	}
 	
 	@Test
@@ -99,31 +105,6 @@ public class MuestraTestCase {
 	}
 	
 	@Test
-	public void testVerificacionDeMuestraBaja() {
-		when(verificacion.puntosDeVerificacion()).thenReturn(1);
-		assertTrue(muestra1.nivelDeVerificacion().equals("Bajo"));
-	}
-	
-	@Test
-	public void testVerificacionDeMuestraMedia() {
-		when(verificacion.puntosDeVerificacion()).thenReturn(1);
-		when(verificacion2.puntosDeVerificacion()).thenReturn(1);
-		muestra1.agregarVerificacion(verificacion2);
-		assertTrue(muestra1.nivelDeVerificacion().equals("Medio"));
-	}
-	
-
-	@Test
-	public void testVerificacionDeMuestraAlta() {
-		muestra1.agregarVerificacion(verificacion2);
-		muestra1.agregarVerificacion(verificacion4);
-		when(verificacion.puntosDeVerificacion()).thenReturn(1);
-		when(verificacion2.puntosDeVerificacion()).thenReturn(1);
-		when(verificacion4.puntosDeVerificacion()).thenReturn(1);
-		assertEquals("Alto",muestra1.nivelDeVerificacion());
-	}
-	
-	@Test
 	public void testUsuarioEnvioMuestra() {
 		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
 		assertTrue(muestra1.usuarioEnvioMuestra(usuario1));
@@ -134,14 +115,14 @@ public class MuestraTestCase {
 	
 	@Test
 	public void testUsuarioVerificoEnElUltimoMes() {
-		muestra1.agregarVerificacion(verificacion2);
+		muestra3.agregarVerificacion(verificacion2);
 		when(verificacion2.getFechaVerificacion()).thenReturn(fechaVerificacion);
 		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(tipoDeUsuario.enElUltimomes(fechaVerificacion)).thenReturn(true);
-		assertTrue(muestra1.usuarioVerificoEnElUltimoMes(usuario2));
-		assertFalse(muestra1.usuarioVerificoEnElUltimoMes(usuario1));
-		assertTrue(muestra1.estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(usuario2, verificacion2, fechaVerificacion));
+		assertTrue(muestra3.usuarioVerificoEnElUltimoMes(usuario2));
+		assertFalse(muestra3.usuarioVerificoEnElUltimoMes(usuario1));
+		assertTrue(muestra3.estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(usuario2, verificacion2, fechaVerificacion));
 	}
 	
 }

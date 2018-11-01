@@ -20,13 +20,14 @@ public class Muestra {
 	private Ubicacion ubicacion;
 	private Usuario usuario;
 	private List<Verificacion> verificaciones;
+	private NivelDeVerificacion nivelDeVerificacion;
 
-	public Muestra(String tipoMuestra, Ubicacion ubicacion, Usuario usuario, Verificacion verificacion) {
+	public Muestra(String tipoMuestra, Ubicacion ubicacion, Usuario usuario, Verificacion verificacion, NivelDeVerificacion nivelDeVerificacion) {
 		// TODO Auto-generated constructor stub
 		this.tipoMuestra = tipoMuestra;
 		this.ubicacion = ubicacion;
 		this.usuario = usuario;
-		
+		this.nivelDeVerificacion = nivelDeVerificacion;
 		// Creacion y agregado de la verificacion base:
 		
 		this.verificaciones = new ArrayList<>();
@@ -61,7 +62,7 @@ public class Muestra {
 
 	public void agregarVerificacion(Verificacion verificacion) {
 		// TODO Auto-generated method stub
-		this.verificaciones.add(verificacion);
+		this.nivelDeVerificacion.agregarVerificacion(verificacion, this);
 	}
 
 	public Boolean usuarioVerifico(Usuario usuario) {
@@ -84,29 +85,6 @@ public class Muestra {
 		return resultado;
 	}
 
-	public String nivelDeVerificacion() {
-		// TODO Auto-generated method stub
-		String resultado = "";
-		if(this.cantDeVerificaciones()<2) {
-			resultado = "Bajo";
-		}
-		if(this.cantDeVerificaciones() ==2){
-			resultado = "Medio";
-		}
-		if(this.cantDeVerificaciones()> 2) {
-			resultado = "Alto";
-		}
-		return resultado;
-	}
-
-	private Integer cantDeVerificaciones() {
-		// TODO Auto-generated method stub
-		Integer resultado = 0;
-		for(Verificacion verificacion : this.verificaciones) {
-			 resultado += verificacion.puntosDeVerificacion();
-		}
-		return resultado;
-	}
 
 	public Boolean usuarioEnvioMuestra(Usuario usuario) {
 		// TODO Auto-generated method stub
@@ -126,6 +104,16 @@ public class Muestra {
 	public boolean estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(Usuario usuario, Verificacion verificacion,
 			LocalDate fechaVerificacion) {
 		return verificacion.getUsuarioVerificacion().equals(usuario) && usuario.getTipoDeUsuario().enElUltimomes(fechaVerificacion);
+	}
+
+	public NivelDeVerificacion getNivelDeVerificacion() {
+		// TODO Auto-generated method stub
+		return this.nivelDeVerificacion;
+	}
+
+	public void setNivelDeVerificacion(NivelDeVerificacion nivelDeVerificacion) {
+		// TODO Auto-generated method stub
+		this.nivelDeVerificacion = nivelDeVerificacion;
 	}
 
 }
