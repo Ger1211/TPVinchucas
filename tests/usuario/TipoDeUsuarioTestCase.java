@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import muestra.Muestra;
+import muestra.Verificacion;
 import sistema.Sistema;
 
 public class TipoDeUsuarioTestCase {
@@ -18,9 +19,11 @@ public class TipoDeUsuarioTestCase {
 	private Muestra muestra,otraMuestra;
 	private List<Muestra> muestras;
 	private Usuario usuario;
+	private Verificacion verificacion;
 	
 	@Before
 	public void setUp() throws Exception {
+			verificacion = mock(Verificacion.class);
 			sistema = mock(Sistema.class);
 			muestra = mock(Muestra.class);
 			otraMuestra = mock(Muestra.class);
@@ -49,6 +52,10 @@ public class TipoDeUsuarioTestCase {
 		assertEquals(1,tipoDeUsuario.cantidadDeRevisiones(usuario, muestras),0);
 	}
 	
-
+	@Test
+	public void testAgregarVerificacion() {
+		tipoDeUsuario.verificarMuestra(verificacion, muestra);
+		verify(muestra).agregarVerificacion(verificacion);
+	}
 
 }

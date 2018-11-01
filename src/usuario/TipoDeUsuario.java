@@ -14,9 +14,8 @@ public abstract class TipoDeUsuario {
 		this.sistema = sistema;
 	}
 
-	public void verificarMuestra(String tipoDeMuestra, Usuario usuario, Muestra muestra) {
+	public void verificarMuestra(Verificacion verificacion, Muestra muestra) {
 		// TODO Auto-generated method stub
-		Verificacion verificacion = new Verificacion(tipoDeMuestra,usuario);
 		muestra.agregarVerificacion(verificacion);
 		
 	}

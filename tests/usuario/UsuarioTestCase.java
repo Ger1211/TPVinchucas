@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import muestra.Muestra;
+import muestra.Verificacion;
 
 public class UsuarioTestCase {
 
@@ -17,10 +18,12 @@ public class UsuarioTestCase {
 	private TipoDeUsuario tipoDeUsuario1,tipoDeUsuario2;
 	private Muestra muestra;
 	private List<Muestra> muestras;
+	private Verificacion verificacion;
 
 	@Before
 	public void setUp() throws Exception {
 		muestras = new ArrayList<>();
+		verificacion = mock(Verificacion.class);
 		tipoDeUsuario1 = mock(TipoDeUsuario.class);
 		tipoDeUsuario2 = mock(TipoDeUsuario.class);
 		usuario = new Usuario("German",tipoDeUsuario1);
@@ -45,10 +48,16 @@ public class UsuarioTestCase {
 	}
 	
 	@Test
+	public void testEnviarMuestra()  {
+		usuario.enviarMuestra(muestra);
+		verify(tipoDeUsuario1).enviarMuestra(muestra);
+	}
+	
+	@Test
 	public void testVerificarMuestra() {
 		when(muestra.usuarioVerifico(usuario)).thenReturn(false);
-		usuario.verificarMuestra("a",muestra);
-		verify(tipoDeUsuario1).verificarMuestra("a",usuario,muestra);
+		usuario.verificarMuestra(verificacion,muestra);
+		verify(tipoDeUsuario1).verificarMuestra(verificacion,muestra);
 		verify(muestra).usuarioVerifico(usuario);
 	}
 	
