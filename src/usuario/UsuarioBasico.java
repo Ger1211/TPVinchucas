@@ -27,4 +27,5 @@ public class UsuarioBasico extends TipoDeUsuario {
 		// Los usuarios básicos no descienden.
 	}
 
+
 }

@@ -3,6 +3,7 @@ package muestra;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import muestra.Muestra;
 import ubicacion.Ubicacion;
+import usuario.TipoDeUsuario;
 import usuario.Usuario;
 
 
@@ -25,9 +27,13 @@ public class MuestraTestCase {
 	private Verificacion verificacion4;
 	private List<Muestra> muestras,resultado;
 	private List<Verificacion> resultadoVerificaciones;
+	private LocalDate fechaVerificacion;
+	private TipoDeUsuario tipoDeUsuario;
 
 	@Before
 	public void setUp() throws Exception {
+		tipoDeUsuario = mock(TipoDeUsuario.class);
+		fechaVerificacion = LocalDate.now();
 		ubicacion = mock(Ubicacion.class);
 		otraUbicacion = mock(Ubicacion.class);
 		usuario1  =mock(Usuario.class);
@@ -35,7 +41,7 @@ public class MuestraTestCase {
 		verificacion  = mock(Verificacion.class);
 		muestra1 = new Muestra("a",ubicacion,usuario1,verificacion);
 		verificacion2 = mock(Verificacion.class);
-		verificacion3 = new Verificacion("a",usuario1);
+		verificacion3 = new Verificacion("a",usuario1,fechaVerificacion);
 		muestra2 = new Muestra("a",ubicacion,usuario1,verificacion3);
 		muestra3 = new Muestra("a",otraUbicacion,usuario1,verificacion);
 		muestras = new ArrayList<>();
@@ -122,6 +128,20 @@ public class MuestraTestCase {
 		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
 		assertTrue(muestra1.usuarioEnvioMuestra(usuario1));
 		assertFalse(muestra1.usuarioEnvioMuestra(usuario2));
+	}
+	
+
+	
+	@Test
+	public void testUsuarioVerificoEnElUltimoMes() {
+		muestra1.agregarVerificacion(verificacion2);
+		when(verificacion2.getFechaVerificacion()).thenReturn(fechaVerificacion);
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.enElUltimomes(fechaVerificacion)).thenReturn(true);
+		assertTrue(muestra1.usuarioVerificoEnElUltimoMes(usuario2));
+		assertFalse(muestra1.usuarioVerificoEnElUltimoMes(usuario1));
+		assertTrue(muestra1.estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(usuario2, verificacion2, fechaVerificacion));
 	}
 	
 }

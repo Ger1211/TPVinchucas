@@ -50,14 +50,14 @@ public class UsuarioTestCase {
 	@Test
 	public void testEnviarMuestra()  {
 		usuario.enviarMuestra(muestra);
-		verify(tipoDeUsuario1).enviarMuestra(muestra);
+		verify(tipoDeUsuario1).enviarMuestra(muestra,usuario);
 	}
 	
 	@Test
 	public void testVerificarMuestra() {
 		when(muestra.usuarioVerifico(usuario)).thenReturn(false);
 		usuario.verificarMuestra(verificacion,muestra);
-		verify(tipoDeUsuario1).verificarMuestra(verificacion,muestra);
+		verify(tipoDeUsuario1).verificarMuestra(verificacion,muestra,usuario);
 		verify(muestra).usuarioVerifico(usuario);
 	}
 	
@@ -80,5 +80,25 @@ public class UsuarioTestCase {
 		
 		usuario.descenderUsuario();
 		verify(tipoDeUsuario1).descenderUsuario(usuario);
+	}
+	
+	@Test
+	public void testVerificacionDeEnvios() {
+		when(tipoDeUsuario1.cantidadDeEnvios(usuario, muestras)).thenReturn(11);
+		assertTrue(usuario.verificacionEnvios(muestras));
+		
+		usuario.setTipoDeUsuario(tipoDeUsuario2);
+		when(tipoDeUsuario2.cantidadDeEnvios(usuario, muestras)).thenReturn(2);
+		assertFalse(usuario.verificacionEnvios(muestras));
+	}
+	
+	@Test
+	public void testVerificacionDeRevisiones() {
+		when(tipoDeUsuario1.cantidadDeRevisiones(usuario, muestras)).thenReturn(21);
+		assertTrue(usuario.verificacionRevisiones(muestras));
+		
+		usuario.setTipoDeUsuario(tipoDeUsuario2);
+		when(tipoDeUsuario2.cantidadDeRevisiones(usuario, muestras)).thenReturn(2);
+		assertFalse(usuario.verificacionRevisiones(muestras));
 	}
 }

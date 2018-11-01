@@ -35,13 +35,16 @@ public class Usuario {
 
 	public void enviarMuestra(Muestra muestra) {
 		// TODO Auto-generated method stub
-		this.tipoDeUsuario.enviarMuestra(muestra);
+		this.tipoDeUsuario.enviarMuestra(muestra,this);
+		this.tipoDeUsuario.verificacionAscensoODescensoDeRango(this);
 	}
+
+	
 
 	public void verificarMuestra(Verificacion verificacion,Muestra muestra) {
 		// TODO Auto-generated method stub
 		if(!muestra.usuarioVerifico(this)) {
-		this.tipoDeUsuario.verificarMuestra(verificacion,muestra);
+		this.tipoDeUsuario.verificarMuestra(verificacion,muestra,this);
 		}
 	}
 
@@ -68,6 +71,16 @@ public class Usuario {
 	public void descenderUsuario() {
 		// TODO Auto-generated method stub
 		this.tipoDeUsuario.descenderUsuario(this);
+	}
+
+	public Boolean verificacionEnvios(List<Muestra> muestras) {
+		// TODO Auto-generated method stub
+		return this.cantidadDeEnvios(muestras)>10;
+	}
+
+	public Boolean verificacionRevisiones(List<Muestra> muestras) {
+		// TODO Auto-generated method stub
+		return this.cantidadDeRevisiones(muestras)>20;
 	}
 
 	

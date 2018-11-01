@@ -24,17 +24,6 @@ public class Sistema {
 		return this.muestras;
 	}
 
-	public void modificarRangoUsuarios() {
-		// TODO Auto-generated method stub
-		for(Usuario usuario :usuarios) {
-			if(usuario.cantidadDeEnvios(muestras)>10 && usuario.cantidadDeRevisiones(muestras)>20) {
-				usuario.ascenderUsuario();
-			}
-			else  {
-				usuario.descenderUsuario();
-			}
-		}
-		
-	}
+
 
 }
