@@ -65,11 +65,11 @@ public class Muestra {
 		this.nivelDeVerificacion.agregarVerificacion(verificacion, this);
 	}
 
-	public Boolean usuarioVerifico(Usuario usuario) {
+	public Boolean usuarioNoVerifico(Usuario usuario) {
 		// TODO Auto-generated method stub
-		Boolean resultado = false;
+		Boolean resultado = true;
 		for(Verificacion verificacion: verificaciones) {
-			resultado = resultado || verificacion.getUsuarioVerificacion().equals(usuario);
+			resultado = resultado && !verificacion.getUsuarioVerificacion().equals(usuario);
 		}
 		return resultado;
 	}

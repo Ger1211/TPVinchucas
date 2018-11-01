@@ -55,10 +55,18 @@ public class UsuarioTestCase {
 	
 	@Test
 	public void testVerificarMuestra() {
-		when(muestra.usuarioVerifico(usuario)).thenReturn(false);
+		when(muestra.usuarioNoVerifico(usuario)).thenReturn(true);
 		usuario.verificarMuestra(verificacion,muestra);
 		verify(tipoDeUsuario1).verificarMuestra(verificacion,muestra,usuario);
-		verify(muestra).usuarioVerifico(usuario);
+		verify(muestra).usuarioNoVerifico(usuario);
+	}
+	
+	@Test 
+	public void testNoVerificarMuestra() {
+		when(muestra.usuarioNoVerifico(usuario)).thenReturn(false);
+		usuario.verificarMuestra(verificacion, muestra);
+		verifyZeroInteractions(tipoDeUsuario1);
+		
 	}
 	
 	@Test
