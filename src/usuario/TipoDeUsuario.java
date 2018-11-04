@@ -1,5 +1,7 @@
 package usuario;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import muestra.Muestra;
@@ -14,16 +16,17 @@ public abstract class TipoDeUsuario {
 		this.sistema = sistema;
 	}
 
-	public void verificarMuestra(String tipoDeMuestra, Usuario usuario, Muestra muestra) {
+	public void verificarMuestra(Verificacion verificacion, Muestra muestra,Usuario usuario) {
 		// TODO Auto-generated method stub
-		Verificacion verificacion = new Verificacion(tipoDeMuestra,usuario);
 		muestra.agregarVerificacion(verificacion);
+		this.verificacionAscensoODescensoDeRango(usuario);;
 		
 	}
 
-	public void enviarMuestra(Muestra muestra) {
+	public void enviarMuestra(Muestra muestra,Usuario usuario) {
 		// TODO Auto-generated method stub
 		sistema.enviarMuestraAlSistema(muestra);
+		this.verificacionAscensoODescensoDeRango(usuario);
 	}
 
 	public abstract Integer puntosDeUsuario();
@@ -32,12 +35,21 @@ public abstract class TipoDeUsuario {
 		// TODO Auto-generated method stub
 		Integer resultado = 0;
 			for(Muestra muestra : muestras) {
-				if(this.usuarioEnvioMuestra(usuario,muestra)) {
+				Verificacion verificacionEnvio = muestra.getVerificaciones().get(0);
+				LocalDate fechaVerificacion = verificacionEnvio.getFechaVerificacion();
+				if(this.usuarioEnvioMuestra(usuario,muestra) && this.enElUltimomes(fechaVerificacion)) {
 					resultado += 1;
 				}
 			}
 	
 		return resultado;
+	}
+
+	public Boolean enElUltimomes(LocalDate fechaVerificacion) {
+		// TODO Auto-generated method stub
+		LocalDate hoy = LocalDate.now();
+		Period periodo = Period.between(hoy, fechaVerificacion);
+		return periodo.getMonths()<31;
 	}
 
 	private Boolean usuarioEnvioMuestra(Usuario usuario, Muestra muestra) {
@@ -49,21 +61,35 @@ public abstract class TipoDeUsuario {
 		// TODO Auto-generated method stub
 		Integer resultado = 0;
 		for(Muestra muestra : muestras) {
-			if(this.usuarioVerificoMuestra(usuario,muestra)) {
+			if(this.usuarioVerificoMuestraEnElUltimoMes(usuario,muestra)) {
 				resultado += 1;
 			}
 		}
 
 	return resultado;
 }
-
-	private Boolean usuarioVerificoMuestra(Usuario usuario, Muestra muestra) {
-		// TODO Auto-generated method stub
-		return muestra.usuarioVerifico(usuario);
+	
+	private Boolean usuarioVerificoMuestraEnElUltimoMes(Usuario usuario,Muestra muestra) {
+		return muestra.usuarioVerificoEnElUltimoMes(usuario);
 	}
 
 	public abstract void ascenderUsuario(Usuario usuario);
 
 	public abstract void descenderUsuario(Usuario usuario);
+
+	public void verificacionAscensoODescensoDeRango(Usuario usuario) {
+		List<Muestra> muestras = this.getSistema().getMuestras();
+			if(usuario.verificacionEnvios(muestras) && usuario.verificacionRevisiones(muestras)) {
+				this.ascenderUsuario(usuario);
+			}
+			else {
+				this.descenderUsuario(usuario);
+			}
+	}
+
+	public Sistema getSistema() {
+		// TODO Auto-generated method stub
+		return this.sistema;
+	}
 
 }

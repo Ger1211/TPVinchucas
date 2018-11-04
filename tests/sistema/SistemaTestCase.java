@@ -39,22 +39,5 @@ public class SistemaTestCase {
 		assertTrue(sistema.getMuestras().contains(muestra));
 	}
 	
-	@Test
-	public void testUsuarioCambioAExperto(){
-		when(usuario.cantidadDeEnvios(muestras)).thenReturn(11);
-		when(usuario.cantidadDeRevisiones(muestras)).thenReturn(21);
-		sistema.modificarRangoUsuarios();
-		verify(usuario).cantidadDeEnvios(muestras);
-		verify(usuario).cantidadDeRevisiones(muestras);
-		verify(usuario).ascenderUsuario();
-	}
-	
-	@Test
-	public void testUsuarioCambioABasico() {
-		when(usuario.cantidadDeEnvios(muestras)).thenReturn(5);
-		sistema.modificarRangoUsuarios();
-		verify(usuario).cantidadDeEnvios(muestras);
-		verify(usuario).descenderUsuario();
-	}
 
 }

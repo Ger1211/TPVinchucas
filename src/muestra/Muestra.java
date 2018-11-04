@@ -1,5 +1,6 @@
 package muestra;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class Muestra {
 		// TODO Auto-generated method stub
 		Boolean resultado = false;
 		for(Verificacion verificacion: verificaciones) {
-			resultado = resultado || verificacion.getUsuarioVerificacion() == usuario;
+			resultado = resultado || verificacion.getUsuarioVerificacion().equals(usuario);
 		}
 		return resultado;
 	}
@@ -110,6 +111,21 @@ public class Muestra {
 	public Boolean usuarioEnvioMuestra(Usuario usuario) {
 		// TODO Auto-generated method stub
 		return this.verificaciones.get(0).getUsuarioVerificacion() == usuario;
+	}
+	
+	public Boolean usuarioVerificoEnElUltimoMes(Usuario usuario) {
+		Boolean resultado = false;
+		List<Verificacion> revisiones = this.verificaciones.subList(1, this.verificaciones.size());
+		for(Verificacion verificacion : revisiones) {
+			LocalDate fechaVerificacion = verificacion.getFechaVerificacion();
+			resultado = resultado || estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(usuario, verificacion, fechaVerificacion);
+		}
+		return resultado;
+	}
+
+	public boolean estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(Usuario usuario, Verificacion verificacion,
+			LocalDate fechaVerificacion) {
+		return verificacion.getUsuarioVerificacion().equals(usuario) && usuario.getTipoDeUsuario().enElUltimomes(fechaVerificacion);
 	}
 
 }
