@@ -93,8 +93,8 @@ public class MuestraTestCase {
 	
 	@Test
 	public void testUsuario1VerificoMuestraYUsuario2NoVerificoMuestra(){
-		assertTrue(muestra2.usuarioVerifico(usuario1));
-		assertFalse(muestra2.usuarioVerifico(usuario2));
+		assertFalse(muestra2.usuarioNoVerifico(usuario1));
+		assertTrue(muestra2.usuarioNoVerifico(usuario2));
 	}
 	
 	@Test

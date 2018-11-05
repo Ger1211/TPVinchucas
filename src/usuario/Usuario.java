@@ -43,7 +43,7 @@ public class Usuario {
 
 	public void verificarMuestra(Verificacion verificacion,Muestra muestra) {
 		// TODO Auto-generated method stub
-		if(!muestra.usuarioVerifico(this)) {
+		if(muestra.usuarioNoVerifico(this)) {
 		this.tipoDeUsuario.verificarMuestra(verificacion,muestra,this);
 		}
 	}
