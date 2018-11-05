@@ -17,10 +17,6 @@ public class Verificacion {
 		this.fechaVerificacion  = fechaVerificacion;
 	}
 	
-	/*public Boolean esIgual(Verificacion verificacion) {
-		return this.tipoDeMuestra.equals(verificacion.getTipoMuestra()) && verificacion.getUsuarioVerificacion() == this.usuario ;
-	}*/
-	
 	public String getTipoMuestra() {
 		return this.tipoDeMuestra;
 	}
