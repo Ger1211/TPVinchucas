@@ -115,10 +115,11 @@ public class MuestraTestCase {
 	
 	@Test
 	public void testUsuarioVerificoEnElUltimoMes() {
-		muestra3.agregarVerificacion(verificacion2);
-		when(verificacion2.getFechaVerificacion()).thenReturn(fechaVerificacion);
 		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		muestra3.agregarVerificacion(verificacion2);
+		when(verificacion2.getFechaVerificacion()).thenReturn(fechaVerificacion);
 		when(tipoDeUsuario.enElUltimomes(fechaVerificacion)).thenReturn(true);
 		assertTrue(muestra3.usuarioVerificoEnElUltimoMes(usuario2));
 		assertFalse(muestra3.usuarioVerificoEnElUltimoMes(usuario1));

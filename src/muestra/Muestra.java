@@ -62,7 +62,9 @@ public class Muestra {
 
 	public void agregarVerificacion(Verificacion verificacion) {
 		// TODO Auto-generated method stub
+		if(verificaciones.size()<3) {
 		this.nivelDeVerificacion.agregarVerificacion(verificacion, this);
+		}
 	}
 
 	public Boolean usuarioNoVerifico(Usuario usuario) {

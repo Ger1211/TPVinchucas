@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import muestra.Muestra;
 import muestra.Verificacion;
+import sistema.Sistema;
 
 public class UsuarioTestCase {
 
@@ -19,6 +20,7 @@ public class UsuarioTestCase {
 	private Muestra muestra;
 	private List<Muestra> muestras;
 	private Verificacion verificacion;
+	private Sistema sistema;
 
 	@Before
 	public void setUp() throws Exception {
@@ -29,6 +31,7 @@ public class UsuarioTestCase {
 		usuario = new Usuario("German",tipoDeUsuario1);
 		muestra = mock(Muestra.class);
 		muestras.add(muestra);
+		sistema = mock(Sistema.class);
 	}
 
 	@Test
@@ -49,22 +52,23 @@ public class UsuarioTestCase {
 	
 	@Test
 	public void testEnviarMuestra()  {
-		usuario.enviarMuestra(muestra);
-		verify(tipoDeUsuario1).enviarMuestra(muestra,usuario);
+		when(sistema.getMuestras()).thenReturn(muestras);
+		usuario.enviarMuestra(muestra,sistema);
+		verify(tipoDeUsuario1).verificacionAscensoODescensoDeRango(usuario, muestras);;
 	}
 	
 	@Test
 	public void testVerificarMuestra() {
 		when(muestra.usuarioNoVerifico(usuario)).thenReturn(true);
-		usuario.verificarMuestra(verificacion,muestra);
-		verify(tipoDeUsuario1).verificarMuestra(verificacion,muestra,usuario);
+		usuario.verificarMuestra(verificacion,muestra,muestras);
+		verify(tipoDeUsuario1).verificarMuestra(verificacion,muestra,usuario,muestras);
 		verify(muestra).usuarioNoVerifico(usuario);
 	}
 	
 	@Test 
 	public void testNoVerificarMuestra() {
 		when(muestra.usuarioNoVerifico(usuario)).thenReturn(false);
-		usuario.verificarMuestra(verificacion, muestra);
+		usuario.verificarMuestra(verificacion, muestra,muestras);
 		verifyZeroInteractions(tipoDeUsuario1);
 		
 	}

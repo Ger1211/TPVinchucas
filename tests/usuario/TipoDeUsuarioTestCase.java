@@ -12,10 +12,9 @@ import org.junit.Test;
 
 import muestra.Muestra;
 import muestra.Verificacion;
-import sistema.Sistema;
+
 
 public class TipoDeUsuarioTestCase {
-	private Sistema sistema;
 	private TipoDeUsuario tipoDeUsuario;
 	private Muestra muestra,otraMuestra;
 	private List<Muestra> muestras;
@@ -32,10 +31,9 @@ public class TipoDeUsuarioTestCase {
 			verificacion2 = mock(Verificacion.class);
 			verificaciones.add(verificacion1);
 			verificaciones.add(verificacion2);
-			sistema = mock(Sistema.class);
 			muestra = mock(Muestra.class);
 			otraMuestra = mock(Muestra.class);
-			tipoDeUsuario = new UsuarioBasico(sistema);
+			tipoDeUsuario = new UsuarioBasico();
 			muestras = new ArrayList<>();
 			muestras.add(muestra);
 			usuario = mock(Usuario.class);
@@ -43,11 +41,6 @@ public class TipoDeUsuarioTestCase {
 			
 	}
 
-	@Test
-	public void testSistemaEnviarMuestra() {
-		tipoDeUsuario.enviarMuestra(muestra,usuario);
-		verify(sistema).enviarMuestraAlSistema(muestra);
-	}
 	
 	@Test
 	public void testCantidadDeEnvios() {
@@ -66,7 +59,7 @@ public class TipoDeUsuarioTestCase {
 	
 	@Test
 	public void testAgregarVerificacion() {
-		tipoDeUsuario.verificarMuestra(verificacion1, muestra,usuario);
+		tipoDeUsuario.verificarMuestra(verificacion1, muestra,usuario,muestras);
 		verify(muestra).agregarVerificacion(verificacion1);
 	}
 
