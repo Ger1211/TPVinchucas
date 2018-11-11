@@ -4,6 +4,7 @@ import java.util.List;
 
 import muestra.Muestra;
 import muestra.Verificacion;
+import sistema.Sistema;
 
 
 public class Usuario {
@@ -33,18 +34,18 @@ public class Usuario {
 		this.tipoDeUsuario = tipoDeUsuario;
 	}
 
-	public void enviarMuestra(Muestra muestra) {
+	public void enviarMuestra(Muestra muestra,Sistema sistema) {
 		// TODO Auto-generated method stub
-		this.tipoDeUsuario.enviarMuestra(muestra,this);
-		this.tipoDeUsuario.verificacionAscensoODescensoDeRango(this);
+		sistema.enviarMuestraAlSistema(muestra);
+		this.tipoDeUsuario.verificacionAscensoODescensoDeRango(this,sistema.getMuestras());
 	}
 
 	
 
-	public void verificarMuestra(Verificacion verificacion,Muestra muestra) {
+	public void verificarMuestra(Verificacion verificacion,Muestra muestra,List<Muestra> muestras) {
 		// TODO Auto-generated method stub
 		if(muestra.usuarioNoVerifico(this)) {
-		this.tipoDeUsuario.verificarMuestra(verificacion,muestra,this);
+		this.tipoDeUsuario.verificarMuestra(verificacion,muestra,this,muestras);
 		}
 	}
 

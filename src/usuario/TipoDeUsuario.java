@@ -6,28 +6,16 @@ import java.util.List;
 
 import muestra.Muestra;
 import muestra.Verificacion;
-import sistema.Sistema;
 
 public abstract class TipoDeUsuario {
 	
-	protected Sistema sistema;
-
-	public TipoDeUsuario(Sistema sistema) {
-		this.sistema = sistema;
-	}
-
-	public void verificarMuestra(Verificacion verificacion, Muestra muestra,Usuario usuario) {
+	public void verificarMuestra(Verificacion verificacion, Muestra muestra,Usuario usuario,List<Muestra> muestras) {
 		// TODO Auto-generated method stub
 		muestra.agregarVerificacion(verificacion);
-		this.verificacionAscensoODescensoDeRango(usuario);;
+		this.verificacionAscensoODescensoDeRango(usuario,muestras);;
 		
 	}
 
-	public void enviarMuestra(Muestra muestra,Usuario usuario) {
-		// TODO Auto-generated method stub
-		sistema.enviarMuestraAlSistema(muestra);
-		this.verificacionAscensoODescensoDeRango(usuario);
-	}
 
 	public abstract Integer puntosDeUsuario();
 
@@ -77,8 +65,8 @@ public abstract class TipoDeUsuario {
 
 	public abstract void descenderUsuario(Usuario usuario);
 
-	public void verificacionAscensoODescensoDeRango(Usuario usuario) {
-		List<Muestra> muestras = this.getSistema().getMuestras();
+	public void verificacionAscensoODescensoDeRango(Usuario usuario,List<Muestra> muestras) {
+		
 			if(usuario.verificacionEnvios(muestras) && usuario.verificacionRevisiones(muestras)) {
 				this.ascenderUsuario(usuario);
 			}
@@ -87,9 +75,6 @@ public abstract class TipoDeUsuario {
 			}
 	}
 
-	public Sistema getSistema() {
-		// TODO Auto-generated method stub
-		return this.sistema;
-	}
+
 
 }

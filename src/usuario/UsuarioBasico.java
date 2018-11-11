@@ -1,13 +1,7 @@
 package usuario;
 
-import sistema.Sistema;
 
 public class UsuarioBasico extends TipoDeUsuario {
-
-	public UsuarioBasico(Sistema sistema) {
-		super(sistema);
-		// TODO Auto-generated constructor stub
-	}
 	
 	@Override
 	public Integer puntosDeUsuario() {
@@ -17,7 +11,7 @@ public class UsuarioBasico extends TipoDeUsuario {
 	@Override
 	public void ascenderUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
-		TipoDeUsuario usuarioExperto = new UsuarioExperto(this.sistema);
+		TipoDeUsuario usuarioExperto = new UsuarioExperto();
 		usuario.setTipoDeUsuario(usuarioExperto);
 	}
 
