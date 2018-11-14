@@ -1,3 +1,4 @@
+
 package muestra;
 
 import static org.junit.Assert.*;
@@ -20,10 +21,10 @@ public class MuestraTestCase {
 
 	private Muestra muestra1,muestra2,muestra3;
 	private Ubicacion ubicacion,otraUbicacion;
-	private Usuario usuario1,usuario2;
+	private Usuario usuario1,usuario2,usuario3;
 	private Verificacion verificacion;
 	private Verificacion verificacion2;
-	private Verificacion verificacion3 ;
+	private Verificacion verificacion3,verificacion4 ;
 	private List<Muestra> muestras,resultado;
 	private List<Verificacion> resultadoVerificaciones;
 	private LocalDate fechaVerificacion;
@@ -40,10 +41,12 @@ public class MuestraTestCase {
 		otraUbicacion = mock(Ubicacion.class);
 		usuario1  =mock(Usuario.class);
 		usuario2 = mock(Usuario.class);
+		usuario3 = mock(Usuario.class);
 		verificacion  = mock(Verificacion.class);
 		muestra1 = new Muestra("a",ubicacion,usuario1,verificacion,nivelDeVerificacion);
 		verificacion2 = mock(Verificacion.class);
 		verificacion3 = new Verificacion("a",usuario1,fechaVerificacion);
+		verificacion4 = mock(Verificacion.class);
 		muestra2 = new Muestra("a",ubicacion,usuario1,verificacion3,nivelDeVerificacion);
 		muestra3 = new Muestra("a",otraUbicacion,usuario1,verificacion,nivelDeVerificacionBajo);
 		muestras = new ArrayList<>();
@@ -126,4 +129,230 @@ public class MuestraTestCase {
 		assertTrue(muestra3.estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(usuario2, verificacion2, fechaVerificacion));
 	}
 	
+	
+	@Test
+public void testVerificarMuestraDeVinchucaPorUnUsuarioEspecialista() {
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario3);
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		muestra3.agregarVerificacion(verificacion2);
+		muestra3.agregarVerificacion(verificacion4);
+		when(verificacion.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion2.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion4.verificadorEsEspecialista()).thenReturn(true);
+		when(verificacion4.votoAFavor(verificacion4)).thenReturn(true);
+		when(verificacion4.getTipoMuestra()).thenReturn("a");
+		assertEquals("a",muestra3.verificar());
+	}
+	
+
+@Test
+public void testVerificarMuestraDeVinchucaPorDosUsuariosEspecialistasQueVotaronIgual() {
+		//Agregado de las verificaciones
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario3);
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		muestra3.agregarVerificacion(verificacion2);
+		muestra3.agregarVerificacion(verificacion4);
+		// Verificacion de usuario especialista
+		when(verificacion.verificadorEsEspecialista()).thenReturn(true);
+		when(verificacion2.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion4.verificadorEsEspecialista()).thenReturn(true);
+		// Verificacion cantidad de votos
+		when(verificacion.getTipoMuestra()).thenReturn("a");
+		when(verificacion.votoAFavor(verificacion)).thenReturn(true);
+		when(verificacion.votoAFavor(verificacion4)).thenReturn(true);
+		when(verificacion.votoEnContra(verificacion)).thenReturn(false);
+		when(verificacion.votoEnContra(verificacion4)).thenReturn(false);
+		assertEquals("a",muestra3.verificar());
+	}
+
+	
+@Test
+public void testVerificarMuestraDeVinchucaPorDosUsuariosEspecialistasQueNoVotaronIgual() {
+		// Agregar verificaciones
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario3);
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		muestra3.agregarVerificacion(verificacion2);
+		muestra3.agregarVerificacion(verificacion4);
+		// Verificacion de usuario especialista
+		when(verificacion.verificadorEsEspecialista()).thenReturn(true);
+		when(verificacion2.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion4.verificadorEsEspecialista()).thenReturn(true);
+		// Verificacion de usuario experto
+		when(verificacion.verificadorEsExperto()).thenReturn(false);
+		when(verificacion2.verificadorEsExperto()).thenReturn(false);
+		when(verificacion4.verificadorEsExperto()).thenReturn(false);
+		// Verificacion de votos a favor
+		when(verificacion.votoAFavor(verificacion)).thenReturn(true);
+		when(verificacion.votoAFavor(verificacion4)).thenReturn(false);
+		when(verificacion4.votoAFavor(verificacion)).thenReturn(false);
+		when(verificacion4.votoAFavor(verificacion4)).thenReturn(true);
+		// Verificacion votos en contra
+		when(verificacion.votoEnContra(verificacion)).thenReturn(false);
+		when(verificacion.votoEnContra(verificacion4)).thenReturn(true);
+		when(verificacion4.votoEnContra(verificacion)).thenReturn(true);
+		when(verificacion4.votoEnContra(verificacion4)).thenReturn(false);
+		when(verificacion.getTipoMuestra()).thenReturn("b");
+		when(verificacion4.getTipoMuestra()).thenReturn("a");
+		when(verificacion2.getTipoMuestra()).thenReturn("c");
+		assertEquals("Muestra no identificada",muestra3.verificar());
+	}
+
+@Test
+public void testVerificarMuestraDeVinchucaPorDosUsuariosExpertosQueVotaronIgual() {
+		// Agregado verificaciones
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario3);
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		muestra3.agregarVerificacion(verificacion2);
+		muestra3.agregarVerificacion(verificacion4);
+		// Verificacion usuario especialista
+		when(verificacion.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion2.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion4.verificadorEsEspecialista()).thenReturn(false);
+		// Verificacion usuario experto
+		when(verificacion.verificadorEsExperto()).thenReturn(true);
+		when(verificacion2.verificadorEsExperto()).thenReturn(false);
+		when(verificacion4.verificadorEsExperto()).thenReturn(true);
+		// Verificacion voto a favor
+		when(verificacion.votoAFavor(verificacion)).thenReturn(true);
+		when(verificacion.votoAFavor(verificacion4)).thenReturn(true);
+		// Verificacion voto en contra
+		when(verificacion.votoEnContra(verificacion)).thenReturn(false);
+		when(verificacion.votoEnContra(verificacion4)).thenReturn(false);
+		when(verificacion.getTipoMuestra()).thenReturn("a");
+		when(verificacion4.getTipoMuestra()).thenReturn("a");
+		assertEquals("a",muestra3.verificar());
+	}
+
+
+@Test
+public void testVerificarMuestraDeVinchucaPorDosUsuariosExpertosQueNoVotaronIgual() {
+		// Agregado de verificaciones
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario3);
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		muestra3.agregarVerificacion(verificacion2);
+		muestra3.agregarVerificacion(verificacion4);
+		// Verificacion usuarios especialistas
+		when(verificacion.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion2.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion4.verificadorEsEspecialista()).thenReturn(false);
+		// Verificacion usuarios expertos
+		when(verificacion.verificadorEsExperto()).thenReturn(true);
+		when(verificacion2.verificadorEsExperto()).thenReturn(false);
+		when(verificacion4.verificadorEsExperto()).thenReturn(true);
+		// Verificacion votos a favor
+		when(verificacion.votoAFavor(verificacion)).thenReturn(true);
+		when(verificacion.votoAFavor(verificacion4)).thenReturn(false);
+		when(verificacion4.votoAFavor(verificacion)).thenReturn(false);
+		when(verificacion4.votoAFavor(verificacion4)).thenReturn(true);
+		// Verificacion votos en contra
+		when(verificacion.votoEnContra(verificacion)).thenReturn(false);
+		when(verificacion.votoEnContra(verificacion4)).thenReturn(true);
+		when(verificacion4.votoEnContra(verificacion)).thenReturn(true);
+		when(verificacion4.votoEnContra(verificacion4)).thenReturn(false);
+		when(verificacion.getTipoMuestra()).thenReturn("b");
+		when(verificacion4.getTipoMuestra()).thenReturn("a");
+		when(verificacion2.getTipoMuestra()).thenReturn("c");
+		assertEquals("Muestra no identificada",muestra3.verificar());
+	}
+
+@Test
+public void testVerificarMuestraDeVinchucaPorDosUsuariosBasicosQueVotaronIgual() {
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario3);
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		muestra3.agregarVerificacion(verificacion2);
+		muestra3.agregarVerificacion(verificacion4);
+		when(verificacion.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion2.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion4.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion.verificadorEsExperto()).thenReturn(false);
+		when(verificacion2.verificadorEsExperto()).thenReturn(false);
+		when(verificacion4.verificadorEsExperto()).thenReturn(false);
+		when(verificacion.votoAFavor(verificacion)).thenReturn(true);
+		when(verificacion.votoAFavor(verificacion4)).thenReturn(true);
+		when(verificacion4.votoAFavor(verificacion)).thenReturn(true);
+		when(verificacion4.votoAFavor(verificacion4)).thenReturn(true);
+		when(verificacion.getTipoMuestra()).thenReturn("b");
+		when(verificacion4.getTipoMuestra()).thenReturn("b");
+		when(verificacion2.getTipoMuestra()).thenReturn("c");
+		assertEquals("b",muestra3.verificar());
+	}
+
+@Test
+public void testVerificarMuestraDeVinchucaPorTresUsuariosBasicosQueNoVotaronIgual() {
+		// Agregado de verificaciones
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario3);
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		muestra3.agregarVerificacion(verificacion2);
+		muestra3.agregarVerificacion(verificacion4);
+		// Verificacion usuario especialista
+		when(verificacion.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion2.verificadorEsEspecialista()).thenReturn(false);
+		when(verificacion4.verificadorEsEspecialista()).thenReturn(false);
+		// Verificacion usuario experto
+		when(verificacion.verificadorEsExperto()).thenReturn(false);
+		when(verificacion2.verificadorEsExperto()).thenReturn(false);
+		when(verificacion4.verificadorEsExperto()).thenReturn(false);
+		// Verificacion voto a favor
+		when(verificacion.votoAFavor(verificacion)).thenReturn(true);
+		when(verificacion.votoAFavor(verificacion4)).thenReturn(false);
+		when(verificacion.votoAFavor(verificacion2)).thenReturn(false);
+		when(verificacion2.votoAFavor(verificacion2)).thenReturn(true);
+		when(verificacion2.votoAFavor(verificacion)).thenReturn(false);
+		when(verificacion2.votoAFavor(verificacion4)).thenReturn(false);
+		when(verificacion4.votoAFavor(verificacion4)).thenReturn(true);
+		when(verificacion4.votoAFavor(verificacion)).thenReturn(false);
+		when(verificacion4.votoAFavor(verificacion2)).thenReturn(false);
+		// Verificacion voto en contra
+		when(verificacion.votoEnContra(verificacion)).thenReturn(false);
+		when(verificacion.votoEnContra(verificacion4)).thenReturn(true);
+		when(verificacion.votoEnContra(verificacion2)).thenReturn(true);
+		when(verificacion2.votoEnContra(verificacion2)).thenReturn(false);
+		when(verificacion2.votoEnContra(verificacion)).thenReturn(true);
+		when(verificacion2.votoEnContra(verificacion4)).thenReturn(true);
+		when(verificacion4.votoEnContra(verificacion4)).thenReturn(false);
+		when(verificacion4.votoEnContra(verificacion)).thenReturn(true);
+		when(verificacion4.votoEnContra(verificacion2)).thenReturn(true);
+		
+		when(verificacion.getTipoMuestra()).thenReturn("b");
+		when(verificacion4.getTipoMuestra()).thenReturn("a");
+		when(verificacion2.getTipoMuestra()).thenReturn("c");
+		assertEquals("Muestra no identificada",muestra3.verificar());
+	}
+
+
 }

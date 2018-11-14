@@ -18,7 +18,7 @@ public class UsuarioEspecialistaTestCase {
 
 	@Test
 	public void testPuntosDeUsuarioEspecialista() {
-		assertEquals(3,usuarioEspecialista.puntosDeUsuario(),0);
+		assertEquals(4,usuarioEspecialista.puntosDeUsuario(),0);
 	}
 
 	@Test

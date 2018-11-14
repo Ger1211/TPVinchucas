@@ -3,6 +3,7 @@ package muestra;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ubicacion.Ubicacion;
 import usuario.Usuario;
@@ -103,7 +104,7 @@ public class Muestra {
 		return resultado;
 	}
 
-	public boolean estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(Usuario usuario, Verificacion verificacion,
+	public Boolean estaVerificadaPorElUsuarioEnLosUltimosTreintaDias(Usuario usuario, Verificacion verificacion,
 			LocalDate fechaVerificacion) {
 		return verificacion.getUsuarioVerificacion().equals(usuario) && usuario.getTipoDeUsuario().enElUltimomes(fechaVerificacion);
 	}
@@ -117,5 +118,44 @@ public class Muestra {
 		// TODO Auto-generated method stub
 		this.nivelDeVerificacion = nivelDeVerificacion;
 	}
+
+	public String verificar() {
+		// TODO Auto-generated method stub
+		// Verificar Usuarios Especialistas
+		List<Verificacion> resultadoEspecialistas = this.verificaciones.stream().filter(verificacion -> verificacion.verificadorEsEspecialista()).collect(Collectors.toList());
+		for(Verificacion verificacion1 : resultadoEspecialistas) {
+			if(this.mayoriaVotos(verificacion1,resultadoEspecialistas)) {
+				return verificacion1.getTipoMuestra();
+			}
+		}
+		// Verificar Usuarios Expertos
+		List<Verificacion> resultadoExpertos = this.verificaciones.stream().filter(verificacion -> verificacion.verificadorEsExperto()).collect(Collectors.toList());
+		for(Verificacion verificacion2 : resultadoExpertos) {
+			if(this.mayoriaVotos(verificacion2,resultadoExpertos)) {
+				return verificacion2.getTipoMuestra();
+			}
+		}
+		//Verificacion Usuarios Basicos
+		for(Verificacion verificacion3 : this.verificaciones) {
+			if(this.mayoriaVotos(verificacion3,this.verificaciones))  {
+				return verificacion3.getTipoMuestra();
+			}
+		}
+		
+		return "Muestra no identificada";
+}
+
+	private Boolean mayoriaVotos(Verificacion verificacion, List<Verificacion> verificaciones) {
+		// TODO Auto-generated method stub
+		List<Verificacion> listaAFavor = verificaciones.stream().filter(verificacionMuestra -> verificacionMuestra.votoAFavor(verificacion)).collect(Collectors.toList());
+		List<Verificacion> listaEnContra = verificaciones.stream().filter(verificacionMuestra -> verificacionMuestra.votoEnContra(verificacion)).collect(Collectors.toList());	
+		return listaAFavor.size() > listaEnContra.size();
+	}
+
+
+
+
+
+
 
 }

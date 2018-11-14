@@ -36,4 +36,24 @@ public class Verificacion {
 		return this.fechaVerificacion;
 	}
 
+	public Boolean verificadorEsEspecialista() {
+		// TODO Auto-generated method stub
+		return this.usuario.puntosDeUsuario() == 4;
+	}
+
+	public Boolean verificadorEsExperto() {
+		// TODO Auto-generated method stub
+		return this.usuario.puntosDeUsuario() == 3;
+	}
+
+	public Boolean votoAFavor(Verificacion verificacion) {
+		// TODO Auto-generated method stub
+		return this.getTipoMuestra().equals(verificacion.getTipoMuestra());
+	}
+
+	public Boolean votoEnContra(Verificacion verificacion) {
+		// TODO Auto-generated method stub
+		return !this.getTipoMuestra().equals(verificacion.getTipoMuestra());
+	}
+
 }
