@@ -38,7 +38,6 @@ public class TipoDeUsuarioTestCase {
 			muestras.add(muestra);
 			usuario = mock(Usuario.class);
 			
-			
 	}
 
 	

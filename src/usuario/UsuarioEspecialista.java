@@ -4,7 +4,7 @@ public class UsuarioEspecialista extends TipoDeUsuario {
 
 	@Override
 	public Integer puntosDeUsuario() {
-		return 3;
+		return 4;
 	}
 
 	@Override
