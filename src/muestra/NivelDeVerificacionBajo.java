@@ -1,6 +1,6 @@
 package muestra;
 
-public class NivelDeVerificacionBajo extends NivelDeVerificacion {
+public class NivelDeVerificacionBajo implements NivelDeVerificacion {
 
 	@Override
 	public void agregarVerificacion(Verificacion verificacion,Muestra muestra) {
@@ -15,6 +15,10 @@ public class NivelDeVerificacionBajo extends NivelDeVerificacion {
 		muestra.getVerificaciones().add(verificacion);
 		muestra.setNivelDeVerificacion(nivelAlto);
 		}
+	}
+	
+	public Boolean esVerificadoPorUnUsuarioBasico(Verificacion verificacion) {
+		return verificacion.getUsuarioVerificacion().getTipoDeUsuario().puntosDeUsuario() == 1;
 	}
 	
 }
