@@ -1,6 +1,10 @@
 package organizacion;
 
-public class Organizacion {
+import muestra.Muestra;
+import observer.Observador;
+import ubicacion.ZonaDeCobertura;
+
+public class Organizacion implements Observador,FuncionalidadExterna {
 
 	private String tipo;
 	private Integer nroEmpleados;
@@ -19,6 +23,18 @@ public class Organizacion {
 	public Integer getNroEmpleados() {
 		// TODO Auto-generated method stub
 		return this.nroEmpleados;
+	}
+
+	@Override
+	public void actualizar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void nuevoEvento(Organizacion organizacion, ZonaDeCobertura zonaDeCobertura, Muestra muestra) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
