@@ -1,7 +1,7 @@
 package muestra;
 
 
-public class NivelDeVerificacionMedio extends NivelDeVerificacion {
+public class NivelDeVerificacionMedio implements NivelDeVerificacion {
 
 	@Override
 	public void agregarVerificacion(Verificacion verificacion,Muestra muestra) {

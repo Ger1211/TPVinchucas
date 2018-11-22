@@ -2,7 +2,7 @@ package muestra;
 
 
 
-public class NivelDeVerificacionAlto extends NivelDeVerificacion {
+public class NivelDeVerificacionAlto implements NivelDeVerificacion {
 
 
 	@Override
