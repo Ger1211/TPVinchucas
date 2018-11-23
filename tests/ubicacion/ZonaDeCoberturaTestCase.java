@@ -3,44 +3,30 @@ package ubicacion;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import muestra.Muestra;
+import observer.Observador;
 
 public class ZonaDeCoberturaTestCase {
 
 	private ZonaDeCobertura zonaDeCobertura1,zonaDeCobertura2,zonaDeCobertura3;
 	private Ubicacion ubicacion1,ubicacion2,ubicacion3;
-	private Muestra muestra1,muestra2,muestra3;
-	private List<Muestra> resultado,muestras;
+	private Observador observador1;
+	private Muestra muestra1;
 	
 	@Before
 	public void setUp() throws Exception {
-		muestra1 = mock(Muestra.class);
-		muestra2 = mock(Muestra.class);
-		muestra3 = mock(Muestra.class);
-		muestras = new ArrayList<>();
-		muestras.add(muestra1);
-		muestras.add(muestra2);
-		muestras.add(muestra3);
+		observador1 = mock(Observador.class);
 		ubicacion1 = new Ubicacion(20.0,30.0);
 		ubicacion2 = new Ubicacion(15.0,25.0);
 		ubicacion3 = new Ubicacion(2500.0,2500.0);
-		
-		when(muestra1.getUbicacion()).thenReturn(ubicacion1);
-		when(muestra2.getUbicacion()).thenReturn(ubicacion2);
-		when(muestra3.getUbicacion()).thenReturn(ubicacion3);
-		
-		zonaDeCobertura1 = new ZonaDeCobertura("Avellaneda",ubicacion1,1000.0,muestras);
-		zonaDeCobertura2= new ZonaDeCobertura("Gerli",ubicacion2,200.0,muestras);
-		zonaDeCobertura3 = new ZonaDeCobertura("Mar del Plata",ubicacion3,200.0,muestras);
-		resultado = new ArrayList<>();
-		resultado.add(muestra1);
-		resultado.add(muestra2);
+		zonaDeCobertura1 = new ZonaDeCobertura("Avellaneda",ubicacion1,1000.0);
+		zonaDeCobertura2= new ZonaDeCobertura("Gerli",ubicacion2,200.0);
+		zonaDeCobertura3 = new ZonaDeCobertura("Mar del Plata",ubicacion3,200.0);
+        muestra1 = mock(Muestra.class);
+        
 	}
 
 	@Test
@@ -64,10 +50,6 @@ public class ZonaDeCoberturaTestCase {
 		assertFalse(zonaDeCobertura1.perteneceAZonaDeCobertura(ubicacion3));
 	}
 	
-	@Test
-	public void testMuestrasPertenecenAlAreaDeCobertura() {
-		assertEquals(resultado,zonaDeCobertura1.getMuestrasEnElArea());
-	}
 	
 	@Test
 	public void testSolapamiento() {
@@ -75,4 +57,23 @@ public class ZonaDeCoberturaTestCase {
 		assertFalse(zonaDeCobertura1.seSolapaCon(zonaDeCobertura3));
 	}
 	
+	@Test
+	public void testAgregarObservador() {
+		zonaDeCobertura1.agregarObservador(observador1);
+		assertTrue(zonaDeCobertura1.getObservadores().contains(observador1));
+	}
+	
+	@Test
+	public void testEliminarObservador() {
+		zonaDeCobertura1.agregarObservador(observador1);
+		zonaDeCobertura1.eliminarObservador(observador1);
+		assertFalse(zonaDeCobertura1.getObservadores().contains(observador1));
+	}
+	
+	@Test
+	public void testNotificarAObservador(){
+		zonaDeCobertura1.agregarObservador(observador1);
+		zonaDeCobertura1.notificar(muestra1);
+		verify(observador1).actualizar(zonaDeCobertura1, muestra1);
+	}
 }
