@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import muestra.Muestra;
 import ubicacion.Ubicacion;
+import ubicacion.ZonaDeCobertura;
 import usuario.TipoDeUsuario;
 import usuario.Usuario;
 
@@ -30,7 +31,8 @@ public class MuestraTestCase {
 	private LocalDate fechaVerificacion;
 	private TipoDeUsuario tipoDeUsuario;
 	private NivelDeVerificacion nivelDeVerificacion,nivelDeVerificacionBajo;
-
+	private ZonaDeCobertura zonaDeCobertura1,zonaDeCobertura2;
+	private List<ZonaDeCobertura> zonas,resultadoZonas;
 	@Before
 	public void setUp() throws Exception {
 		nivelDeVerificacion = mock(NivelDeVerificacion.class);
@@ -56,6 +58,13 @@ public class MuestraTestCase {
 		resultado.add(muestra3);
 		resultadoVerificaciones = new ArrayList<>();
 		resultadoVerificaciones.add(verificacion);
+		zonaDeCobertura1 = mock(ZonaDeCobertura.class);
+		zonaDeCobertura2 = mock(ZonaDeCobertura.class);
+		zonas = new ArrayList<>();
+		zonas.add(zonaDeCobertura1);
+		zonas.add(zonaDeCobertura2);
+		resultadoZonas = new ArrayList<>();
+		resultadoZonas.add(zonaDeCobertura1);
 	}
 
 	@Test
@@ -354,5 +363,20 @@ public void testVerificarMuestraDeVinchucaPorTresUsuariosBasicosQueNoVotaronIgua
 		assertEquals("Muestra no identificada",muestra3.verificar());
 	}
 
-
+	@Test
+	public void testAgregarZonaDeCobertura() {
+		when(zonaDeCobertura1.perteneceAZonaDeCobertura(ubicacion)).thenReturn(true);
+		when(zonaDeCobertura2.perteneceAZonaDeCobertura(ubicacion)).thenReturn(false);
+		muestra1.agregarMisZonasDeCobertura(zonas);
+		assertEquals(resultadoZonas,muestra1.getZonasDeCobertura());
+	}
+	
+	@Test
+	public void testNotificarAZonas() {
+		when(zonaDeCobertura1.perteneceAZonaDeCobertura(ubicacion)).thenReturn(true);
+		when(zonaDeCobertura2.perteneceAZonaDeCobertura(ubicacion)).thenReturn(false);
+		muestra1.agregarMisZonasDeCobertura(zonas);
+		muestra1.notificarAMisZonas();
+		verify(zonaDeCobertura1).notificar(muestra1);
+	}
 }

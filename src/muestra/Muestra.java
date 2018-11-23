@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ubicacion.Ubicacion;
+import ubicacion.ZonaDeCobertura;
 import usuario.Usuario;
 
 public class Muestra {
@@ -22,13 +23,15 @@ public class Muestra {
 	private Usuario usuario;
 	private List<Verificacion> verificaciones;
 	private NivelDeVerificacion nivelDeVerificacion;
-
+	private List<ZonaDeCobertura> misZonasDeCobertura;
+	
 	public Muestra(String tipoMuestra, Ubicacion ubicacion, Usuario usuario, Verificacion verificacion, NivelDeVerificacion nivelDeVerificacion) {
 		// TODO Auto-generated constructor stub
 		this.tipoMuestra = tipoMuestra;
 		this.ubicacion = ubicacion;
 		this.usuario = usuario;
 		this.nivelDeVerificacion = nivelDeVerificacion;
+		this.misZonasDeCobertura = new ArrayList<>();
 		// Creacion y agregado de la verificacion base:
 		
 		this.verificaciones = new ArrayList<>();
@@ -150,6 +153,31 @@ public class Muestra {
 		List<Verificacion> listaAFavor = verificaciones.stream().filter(verificacionMuestra -> verificacionMuestra.votoAFavor(verificacion)).collect(Collectors.toList());
 		List<Verificacion> listaEnContra = verificaciones.stream().filter(verificacionMuestra -> verificacionMuestra.votoEnContra(verificacion)).collect(Collectors.toList());	
 		return listaAFavor.size() > listaEnContra.size();
+	}
+
+	public void agregarMisZonasDeCobertura(List<ZonaDeCobertura> zonasDeCobertura) {
+		// TODO Auto-generated method stub
+		this.misZonasDeCobertura = zonasDeCobertura.stream().filter(zona -> zona.perteneceAZonaDeCobertura(this.ubicacion)).collect(Collectors.toList());
+	}
+
+	public void notificarAMisZonas() {
+		// TODO Auto-generated method stub
+		this.misZonasDeCobertura.stream().forEach(zona-> zona.notificar(this));
+	}
+
+	public List<ZonaDeCobertura> getZonasDeCobertura() {
+		// TODO Auto-generated method stub
+		return this.misZonasDeCobertura;
+	}
+
+	public LocalDate getFechaCreacion() {
+		// TODO Auto-generated method stub
+		return this.verificaciones.get(0).getFechaVerificacion();
+	}
+
+	public LocalDate getFechaUltimaVerificacion() {
+		// TODO Auto-generated method stub
+		return this.verificaciones.get(this.verificaciones.size() -1).getFechaVerificacion();
 	}
 
 

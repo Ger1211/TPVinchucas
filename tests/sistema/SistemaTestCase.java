@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import muestra.Muestra;
+import ubicacion.ZonaDeCobertura;
 import usuario.Usuario;
 
 public class SistemaTestCase {
@@ -19,16 +20,18 @@ public class SistemaTestCase {
 	private Usuario usuario;
 	private List<Usuario> usuarios;
 	private List<Muestra> muestras;
+	private List<ZonaDeCobertura> zonas;
 
 	@Before
 	public void setUp() throws Exception {
 		muestras = new ArrayList<>();
 		usuarios = new ArrayList<>();
+		zonas = new ArrayList<>();
 		usuario = mock(Usuario.class);
 		usuarios.add(usuario);
 		muestra = mock(Muestra.class);
 		muestras.add(muestra);
-		sistema = new Sistema(usuarios,muestras);
+		sistema = new Sistema(usuarios,muestras,zonas);
 
 	}
 
