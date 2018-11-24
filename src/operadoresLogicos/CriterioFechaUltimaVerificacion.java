@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 
 import muestra.Muestra;
 
-public class FechaUltimaVerificacion extends CriterioBusqueda {
+public class CriterioFechaUltimaVerificacion extends CriterioBusqueda {
 		
 		private LocalDate criterio;
 		
-	public FechaUltimaVerificacion(LocalDate criterio) {
+	public CriterioFechaUltimaVerificacion(LocalDate criterio) {
 		this.criterio = criterio;
 	}
 	

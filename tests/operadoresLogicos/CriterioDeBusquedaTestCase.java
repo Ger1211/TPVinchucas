@@ -18,10 +18,10 @@ public class CriterioDeBusquedaTestCase {
 	
 	
 	private List<Muestra> resultadoFechaCreacion,resultadoFechaVerificacion,resultadoTipoMuestra,resultadoNivelValidacion;
-	private FechaCreacionMuestra fechaCreacion;
-	private FechaUltimaVerificacion fechaVerificacion;
-	private TipoDeMuestraDetectado tipoMuestraDetectado;
-	private NivelDeValidacion nivelDeValidacion;
+	private CriterioFechaCreacionMuestra fechaCreacion;
+	private CriterioFechaUltimaVerificacion fechaVerificacion;
+	private CriterioTipoDeMuestraDetectado tipoMuestraDetectado;
+	private CriterioNivelDeValidacion criterioNivelDeValidacion;
 	private LocalDate  fecha1,fecha2;
 	private List<Muestra> muestras;
     private Muestra muestra1, muestra2, muestra3;
@@ -41,10 +41,10 @@ public class CriterioDeBusquedaTestCase {
 		fecha1 = LocalDate.now();
 		fecha2 = LocalDate.of(2014, 10, 13);
 		
-		fechaCreacion = new FechaCreacionMuestra(fecha1);
-		fechaVerificacion = new FechaUltimaVerificacion(fecha1);
-		tipoMuestraDetectado = new TipoDeMuestraDetectado("Vinchuca");
-		nivelDeValidacion = new NivelDeValidacion(nivelVerificacion1);
+		fechaCreacion = new CriterioFechaCreacionMuestra(fecha1);
+		fechaVerificacion = new CriterioFechaUltimaVerificacion(fecha1);
+		tipoMuestraDetectado = new CriterioTipoDeMuestraDetectado("Vinchuca");
+		criterioNivelDeValidacion = new CriterioNivelDeValidacion(nivelVerificacion1);
 		
 		resultadoFechaCreacion = new ArrayList<>();
 		resultadoFechaCreacion.add(muestra2);
@@ -86,6 +86,6 @@ public class CriterioDeBusquedaTestCase {
 		when(muestra1.getNivelDeVerificacion()).thenReturn(nivelVerificacion2);
 		when(muestra2.getNivelDeVerificacion()).thenReturn(nivelVerificacion1);
 		when(muestra3.getNivelDeVerificacion()).thenReturn(nivelVerificacion2);
-		assertEquals(resultadoNivelValidacion,nivelDeValidacion.filtrarPorCriterio(muestras));
+		assertEquals(resultadoNivelValidacion,criterioNivelDeValidacion.filtrarPorCriterio(muestras));
 	}
 }

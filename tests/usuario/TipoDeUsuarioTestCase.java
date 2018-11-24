@@ -16,6 +16,7 @@ import muestra.Verificacion;
 
 public class TipoDeUsuarioTestCase {
 	private TipoDeUsuario tipoDeUsuario;
+	//private UsuarioBasico tipoDeUsuarioBasico;
 	private Muestra muestra,otraMuestra;
 	private List<Muestra> muestras;
 	private Usuario usuario;
@@ -34,6 +35,7 @@ public class TipoDeUsuarioTestCase {
 			muestra = mock(Muestra.class);
 			otraMuestra = mock(Muestra.class);
 			tipoDeUsuario = new UsuarioBasico();
+	//		tipoDeUsuarioBasico = new UsuarioBasico();
 			muestras = new ArrayList<>();
 			muestras.add(muestra);
 			usuario = mock(Usuario.class);
@@ -61,6 +63,22 @@ public class TipoDeUsuarioTestCase {
 		tipoDeUsuario.verificarMuestra(verificacion1, muestra,usuario,muestras);
 		verify(muestra).agregarVerificacion(verificacion1);
 	}
+	/*
+	@Test
+	public void testAscensoDeUsuarioBasico() {
+		when(usuario.verificacionEnvios(muestras)).thenReturn(true);
+		when(usuario.verificacionRevisiones(muestras)).thenReturn(true);
+		tipoDeUsuarioBasico.verificacionAscensoODescensoDeRango(usuario, muestras);
+		verify(usuario).ascenderUsuario();
+	}
+	
+	@Test
+	public void testDescensoDeUsuarioBasico() {
+		when(usuario.verificacionEnvios(muestras)).thenReturn(false);
+		when(usuario.verificacionRevisiones(muestras)).thenReturn(true);
+		tipoDeUsuarioBasico.verificacionAscensoODescensoDeRango(usuario, muestras);
+		verify(usuario).descenderUsuario();
+	}
 
-
+*/
 }

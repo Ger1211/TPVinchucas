@@ -28,7 +28,7 @@ public class MuestraTestCase {
 	private Verificacion verificacion3,verificacion4 ;
 	private List<Muestra> muestras,resultado;
 	private List<Verificacion> resultadoVerificaciones;
-	private LocalDate fechaVerificacion;
+	private LocalDate fechaVerificacion,otraFecha;
 	private TipoDeUsuario tipoDeUsuario;
 	private NivelDeVerificacion nivelDeVerificacion,nivelDeVerificacionBajo;
 	private ZonaDeCobertura zonaDeCobertura1,zonaDeCobertura2;
@@ -39,6 +39,7 @@ public class MuestraTestCase {
 		nivelDeVerificacionBajo = new NivelDeVerificacionBajo();
 		tipoDeUsuario = mock(TipoDeUsuario.class);
 		fechaVerificacion = LocalDate.now();
+		otraFecha = LocalDate.of(2018, 12, 12);
 		ubicacion = mock(Ubicacion.class);
 		otraUbicacion = mock(Ubicacion.class);
 		usuario1  =mock(Usuario.class);
@@ -378,5 +379,22 @@ public void testVerificarMuestraDeVinchucaPorTresUsuariosBasicosQueNoVotaronIgua
 		muestra1.agregarMisZonasDeCobertura(zonas);
 		muestra1.notificarAMisZonas();
 		verify(zonaDeCobertura1).notificar(muestra1);
+	}
+	
+	@Test
+	public void testFechaCreacionMuestra() {
+		when(verificacion.getFechaVerificacion()).thenReturn(fechaVerificacion);
+		assertEquals(fechaVerificacion,muestra1.getFechaCreacion());
+	}
+	
+	@Test
+	public void testFechaUltimaVerficacion() {
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario1);
+		muestra3.agregarVerificacion(verificacion3);
+		muestra3.agregarVerificacion(verificacion4);
+		when(verificacion4.getFechaVerificacion()).thenReturn(otraFecha);
+		assertEquals(otraFecha,muestra3.getFechaUltimaVerificacion());
 	}
 }
