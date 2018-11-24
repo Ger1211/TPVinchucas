@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 import muestra.Muestra;
 import muestra.NivelDeVerificacion;
 
-public class NivelDeValidacion extends CriterioBusqueda {
+public class CriterioNivelDeValidacion extends CriterioBusqueda {
 
 		private NivelDeVerificacion criterio;
 		
-		public NivelDeValidacion(NivelDeVerificacion criterio) {
+		public CriterioNivelDeValidacion(NivelDeVerificacion criterio) {
 			this.criterio = criterio;
 		}
 	

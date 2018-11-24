@@ -2,7 +2,6 @@ package operadoresLogicos;
 
 import java.util.List;
 
-import muestra.Muestra;
 
 public abstract class OperadorLogico extends Filtro {
 	
@@ -10,6 +9,10 @@ public abstract class OperadorLogico extends Filtro {
 		
 		public OperadorLogico(List<Filtro> operadores) {
 			this.operadores = operadores;
+		}
+		
+		public List<Filtro> getOperadores() {
+			return this.operadores;
 		}
 			
 }

@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 
 import muestra.Muestra;
 
-public class TipoDeMuestraDetectado extends CriterioBusqueda {
+public class CriterioTipoDeMuestraDetectado extends CriterioBusqueda {
 		
 		private String criterio;
 		
-		public TipoDeMuestraDetectado(String criterio) {
+		public CriterioTipoDeMuestraDetectado(String criterio) {
 			this.criterio = criterio;
 		}
 	
