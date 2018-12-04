@@ -16,7 +16,6 @@ import muestra.Verificacion;
 
 public class TipoDeUsuarioTestCase {
 	private TipoDeUsuario tipoDeUsuario;
-	//private UsuarioBasico tipoDeUsuarioBasico;
 	private Muestra muestra,otraMuestra;
 	private List<Muestra> muestras;
 	private Usuario usuario;
@@ -35,7 +34,6 @@ public class TipoDeUsuarioTestCase {
 			muestra = mock(Muestra.class);
 			otraMuestra = mock(Muestra.class);
 			tipoDeUsuario = new UsuarioBasico();
-	//		tipoDeUsuarioBasico = new UsuarioBasico();
 			muestras = new ArrayList<>();
 			muestras.add(muestra);
 			usuario = mock(Usuario.class);
@@ -75,5 +73,8 @@ public class TipoDeUsuarioTestCase {
 		verify(usuario).descenderUsuario();
 	}
 
-*/
+	
+*/	
+
+
 }

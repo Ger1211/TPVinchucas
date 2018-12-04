@@ -401,4 +401,13 @@ public void testVerificarMuestraDeVinchucaPorTresUsuariosBasicosQueNoVotaronIgua
 		when(verificacion4.getFechaVerificacion()).thenReturn(otraFecha);
 		assertEquals(otraFecha,muestra3.getFechaUltimaVerificacion());
 	}
+	
+	@Test
+	public void testVerificarYActualizarZonasDeCobertura() {
+		when(zonaDeCobertura1.perteneceAZonaDeCobertura(ubicacion)).thenReturn(true);
+		when(zonaDeCobertura2.perteneceAZonaDeCobertura(ubicacion)).thenReturn(false);
+		muestra1.verificarYActualizarSiPertenezcoAZona(zonaDeCobertura1);
+		assertTrue(muestra1.getZonasDeCobertura().contains(zonaDeCobertura1));
+		assertFalse(muestra1.getZonasDeCobertura().contains(zonaDeCobertura2));
+	}
 }
