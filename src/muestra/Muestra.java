@@ -77,7 +77,7 @@ public class Muestra {
 	public void agregarVerificacion(Verificacion verificacion) {
 		// TODO Auto-generated method stub
 		if(verificaciones.size()<3) {
-		this.notificarAMisZonas();
+		this.notificarAMisZonas(); 
 		this.nivelDeVerificacion.actualizarNivelDeVerificacion(verificacion,this);
 		this.verificaciones.add(verificacion);
 		}
@@ -170,6 +170,12 @@ public class Muestra {
 	public void agregarMisZonasDeCobertura(List<ZonaDeCobertura> zonasDeCobertura) {
 		// TODO Auto-generated method stub
 		this.misZonasDeCobertura = zonasDeCobertura.stream().filter(zona -> zona.perteneceAZonaDeCobertura(this.ubicacion)).collect(Collectors.toList());
+	}
+	
+	public void verificarYActualizarSiPertenezcoAZona(ZonaDeCobertura zonaDeCobertura) {
+		if(zonaDeCobertura.perteneceAZonaDeCobertura(ubicacion)) {
+			this.misZonasDeCobertura.add(zonaDeCobertura);
+		}
 	}
 
 	public void notificarAMisZonas() {

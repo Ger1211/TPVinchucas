@@ -29,6 +29,11 @@ public class Sistema {
 		// TODO Auto-generated method stub
 		return this.muestras;
 	}
+	
+	public void agregarZonaDeCobertura(ZonaDeCobertura zonaDeCobertura) {
+		muestras.stream().forEach(muestra->muestra.verificarYActualizarSiPertenezcoAZona(zonaDeCobertura));
+		this.zonasDeCobertura.add(zonaDeCobertura);
+	}
 
 
 
