@@ -45,14 +45,11 @@ public class Usuario {
 	public void verificarMuestra(Verificacion verificacion,Muestra muestra,List<Muestra> muestras) {
 		// TODO Auto-generated method stub
 		if(muestra.usuarioNoVerifico(this)) {
-		this.tipoDeUsuario.verificarMuestra(verificacion,muestra,this,muestras);
+		muestra.agregarVerificacion(verificacion);
+		this.tipoDeUsuario.verificacionAscensoODescensoDeRango(this,muestras);;
 		}
 	}
-
-	public Integer puntosDeUsuario() {
-		// TODO Auto-generated method stub
-		return this.tipoDeUsuario.puntosDeUsuario();
-	}
+	
 
 	public Integer cantidadDeEnvios(List<Muestra> muestras) {
 		// TODO Auto-generated method stub

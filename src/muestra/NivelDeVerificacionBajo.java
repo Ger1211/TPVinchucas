@@ -3,22 +3,20 @@ package muestra;
 public class NivelDeVerificacionBajo implements NivelDeVerificacion {
 
 	@Override
-	public void agregarVerificacion(Verificacion verificacion,Muestra muestra) {
+	public void actualizarNivelDeVerificacion(Verificacion verificacion, Muestra muestra) {
 		// TODO Auto-generated method stub
-		if(esVerificadoPorUnUsuarioBasico(verificacion)) {
-		NivelDeVerificacionMedio nivelMedio = new NivelDeVerificacionMedio();
-		muestra.getVerificaciones().add(verificacion);
-		muestra.setNivelDeVerificacion(nivelMedio);
+		if(verificacion.getUsuarioVerificacion().getTipoDeUsuario().esUsuarioBasico()) {
+			NivelDeVerificacionMedio nivelDeVerificacionMedio = new NivelDeVerificacionMedio();
+			muestra.setNivelDeVerificacion(nivelDeVerificacionMedio);
 		}
 		else {
-		NivelDeVerificacionAlto nivelAlto = new NivelDeVerificacionAlto();
-		muestra.getVerificaciones().add(verificacion);
-		muestra.setNivelDeVerificacion(nivelAlto);
+			NivelDeVerificacionAlto nivelDeVerificacionAlto = new NivelDeVerificacionAlto();
+			muestra.setNivelDeVerificacion(nivelDeVerificacionAlto);
 		}
+		
 	}
-	
-	public Boolean esVerificadoPorUnUsuarioBasico(Verificacion verificacion) {
-		return verificacion.getUsuarioVerificacion().getTipoDeUsuario().puntosDeUsuario() == 1;
-	}
+
+
+
 	
 }

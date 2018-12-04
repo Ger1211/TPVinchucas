@@ -1,25 +1,23 @@
 package ubicacion;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import muestra.Muestra;
 import observer.Observado;
 import observer.Observador;
 
-public class ZonaDeCobertura implements Observado {
+public class ZonaDeCobertura extends Observado {
 	
 	private String nombreArea;
 	private Ubicacion epicentro;
 	private Double radio;
-	private List<Observador> observadores;
 	
 	public ZonaDeCobertura(String nombreArea, Ubicacion epicentro, Double radio) {
 		// TODO Auto-generated constructor stub
 		this.nombreArea = nombreArea;
 		this.epicentro = epicentro;
 		this.radio = radio;
-		this.observadores = new ArrayList<>();
 	}
 
 
@@ -49,28 +47,17 @@ public class ZonaDeCobertura implements Observado {
 		return (this.epicentro.distanciaHasta(zonaDeCobertura.getEpicentro())) <= (this.radio + zonaDeCobertura.getRadio()) ;
 	}
 
-	@Override
-	public void agregarObservador(Observador observador) {
+	
+	public List<Observador> getObservadores() {
 		// TODO Auto-generated method stub
-		this.observadores.add(observador);
+		return this.observadores;
 	}
 
-	@Override
-	public void eliminarObservador(Observador observador) {
-		// TODO Auto-generated method stub
-		this.observadores.remove(observador);
-	}
 
 	@Override
 	public void notificar(Muestra muestra) {
 		// TODO Auto-generated method stub
 		this.observadores.stream().forEach(observador -> observador.actualizar(this, muestra));
-		
-	}
-
-	public List<Observador> getObservadores() {
-		// TODO Auto-generated method stub
-		return this.observadores;
 	}
 
 }

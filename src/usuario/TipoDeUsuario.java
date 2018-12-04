@@ -9,15 +9,11 @@ import muestra.Verificacion;
 
 public abstract class TipoDeUsuario {
 	
-	public void verificarMuestra(Verificacion verificacion, Muestra muestra,Usuario usuario,List<Muestra> muestras) {
-		// TODO Auto-generated method stub
-		muestra.agregarVerificacion(verificacion);
-		this.verificacionAscensoODescensoDeRango(usuario,muestras);;
-		
-	}
+	public abstract Boolean esUsuarioBasico();
+	public abstract Boolean esUsuarioExperto();
+	public abstract Boolean esUsuarioEspecialista();
+	
 
-
-	public abstract Integer puntosDeUsuario();
 
 	public Integer cantidadDeEnvios(Usuario usuario, List<Muestra> muestras) {
 		// TODO Auto-generated method stub

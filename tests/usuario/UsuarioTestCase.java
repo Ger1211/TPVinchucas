@@ -61,7 +61,7 @@ public class UsuarioTestCase {
 	public void testVerificarMuestra() {
 		when(muestra.usuarioNoVerifico(usuario)).thenReturn(true);
 		usuario.verificarMuestra(verificacion,muestra,muestras);
-		verify(tipoDeUsuario1).verificarMuestra(verificacion,muestra,usuario,muestras);
+		verify(tipoDeUsuario1).verificacionAscensoODescensoDeRango(usuario, muestras);
 		verify(muestra).usuarioNoVerifico(usuario);
 	}
 	
@@ -71,13 +71,7 @@ public class UsuarioTestCase {
 		usuario.verificarMuestra(verificacion, muestra,muestras);
 		verifyZeroInteractions(tipoDeUsuario1);
 		
-	}
-	
-	@Test
-	public void testPuntosDeVerificacionDeTipoDeUsuario() {
-		usuario.puntosDeUsuario();
-		verify(tipoDeUsuario1).puntosDeUsuario();
-	}
+	}	
 	
 	@Test
 	public void testEnvioDeMensajesATipoDeUsuario() {

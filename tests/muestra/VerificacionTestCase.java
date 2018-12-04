@@ -47,11 +47,6 @@ public class VerificacionTestCase {
 		assertEquals(fechaVerificacion,verificacion1.getFechaVerificacion());
 	}
 	
-	@Test
-	public void testVerificacionPuntosDeUsuario() {
-		verificacion1.puntosDeVerificacion();
-		verify(usuario).puntosDeUsuario();
-	}
 	
 	@Test
 	public void testVerificacionPorEspecialista() {

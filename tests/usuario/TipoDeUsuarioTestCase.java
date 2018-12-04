@@ -58,11 +58,6 @@ public class TipoDeUsuarioTestCase {
 		assertEquals(1,tipoDeUsuario.cantidadDeRevisiones(usuario, muestras),0);
 	}
 	
-	@Test
-	public void testAgregarVerificacion() {
-		tipoDeUsuario.verificarMuestra(verificacion1, muestra,usuario,muestras);
-		verify(muestra).agregarVerificacion(verificacion1);
-	}
 	/*
 	@Test
 	public void testAscensoDeUsuarioBasico() {

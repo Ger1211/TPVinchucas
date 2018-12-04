@@ -25,18 +25,28 @@ public class Muestra {
 	private NivelDeVerificacion nivelDeVerificacion;
 	private List<ZonaDeCobertura> misZonasDeCobertura;
 	
-	public Muestra(String tipoMuestra, Ubicacion ubicacion, Usuario usuario, Verificacion verificacion, NivelDeVerificacion nivelDeVerificacion) {
+	public Muestra(String tipoMuestra, Ubicacion ubicacion, Usuario usuario, Verificacion verificacion) {
 		// TODO Auto-generated constructor stub
 		this.tipoMuestra = tipoMuestra;
 		this.ubicacion = ubicacion;
 		this.usuario = usuario;
-		this.nivelDeVerificacion = nivelDeVerificacion;
 		this.misZonasDeCobertura = new ArrayList<>();
 		// Creacion y agregado de la verificacion base:
-		
+		this.setearNivelDeVerificacion(verificacion);
 		this.verificaciones = new ArrayList<>();
-		verificaciones.add(verificacion);
+		this.verificaciones.add(verificacion);
 		
+		
+	}
+
+	private void setearNivelDeVerificacion(Verificacion verificacion) {
+		// TODO Auto-generated method stub
+		if(verificacion.getUsuarioVerificacion().getTipoDeUsuario().esUsuarioBasico()) {
+			this.nivelDeVerificacion =  new NivelDeVerificacionBajo();
+		}
+		else {
+			this.nivelDeVerificacion = new NivelDeVerificacionAlto();
+		}
 		
 	}
 
@@ -67,10 +77,12 @@ public class Muestra {
 	public void agregarVerificacion(Verificacion verificacion) {
 		// TODO Auto-generated method stub
 		if(verificaciones.size()<3) {
-		this.nivelDeVerificacion.agregarVerificacion(verificacion, this);
+		this.notificarAMisZonas();
+		this.nivelDeVerificacion.actualizarNivelDeVerificacion(verificacion,this);
+		this.verificaciones.add(verificacion);
 		}
 	}
-
+	
 	public Boolean usuarioNoVerifico(Usuario usuario) {
 		// TODO Auto-generated method stub
 		Boolean resultado = true;

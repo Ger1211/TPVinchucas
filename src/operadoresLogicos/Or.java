@@ -8,15 +8,15 @@ import muestra.Muestra;
 
 public class Or extends OperadorLogico {
 	
-	public Or(List<Filtro> operadores) {
-		super(operadores);
+	public Or(Filtro filtro1,Filtro filtro2) {
+		super(filtro1,filtro2);
 	}
 
 	@Override
 	public List<Muestra> filtrarPorCriterio(List<Muestra> muestras) {
 		// TODO Auto-generated method stub
-		List<Muestra> listaFiltro1 = this.operadores.get(0).filtrarPorCriterio(muestras);
-		List<Muestra> listaFiltro2 = this.operadores.get(1).filtrarPorCriterio(muestras);
+		List<Muestra> listaFiltro1 = this.filtro1.filtrarPorCriterio(muestras);
+		List<Muestra> listaFiltro2 = this.filtro2.filtrarPorCriterio(muestras);
 		listaFiltro1.addAll(listaFiltro2);
 		listaFiltro2.clear();
 		listaFiltro2.addAll(new ArrayList<Muestra>(new LinkedHashSet<Muestra>(listaFiltro1)));

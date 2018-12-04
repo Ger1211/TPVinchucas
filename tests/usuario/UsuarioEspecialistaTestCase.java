@@ -15,10 +15,12 @@ public class UsuarioEspecialistaTestCase {
 		usuarioEspecialista = new UsuarioEspecialista();
 		usuario = new Usuario("German",usuarioEspecialista);
 	}
-
+	
 	@Test
-	public void testPuntosDeUsuarioEspecialista() {
-		assertEquals(4,usuarioEspecialista.puntosDeUsuario(),0);
+	public void testUnUsuarioEsEspecialista() {
+		assertTrue(usuarioEspecialista.esUsuarioEspecialista());
+		assertFalse(usuarioEspecialista.esUsuarioExperto());
+		assertFalse(usuarioEspecialista.esUsuarioBasico());
 	}
 
 	@Test

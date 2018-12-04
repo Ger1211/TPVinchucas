@@ -26,10 +26,6 @@ public class Verificacion {
 		return this.usuario;
 	}
 
-	public Integer puntosDeVerificacion() {
-		// TODO Auto-generated method stub
-		return this.getUsuarioVerificacion().puntosDeUsuario();
-	}
 
 	public LocalDate getFechaVerificacion() {
 		// TODO Auto-generated method stub
@@ -38,12 +34,12 @@ public class Verificacion {
 
 	public Boolean verificadorEsEspecialista() {
 		// TODO Auto-generated method stub
-		return this.usuario.puntosDeUsuario() == 4;
+		return this.usuario.getTipoDeUsuario().esUsuarioEspecialista();
 	}
 
 	public Boolean verificadorEsExperto() {
 		// TODO Auto-generated method stub
-		return this.usuario.puntosDeUsuario() == 3;
+		return this.usuario.getTipoDeUsuario().esUsuarioExperto();
 	}
 
 	public Boolean votoAFavor(Verificacion verificacion) {
