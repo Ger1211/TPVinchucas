@@ -30,13 +30,10 @@ public class MuestraTestCase {
 	private List<Verificacion> resultadoVerificaciones;
 	private LocalDate fechaVerificacion,otraFecha;
 	private TipoDeUsuario tipoDeUsuario;
-	private NivelDeVerificacion nivelDeVerificacion,nivelDeVerificacionBajo;
 	private ZonaDeCobertura zonaDeCobertura1,zonaDeCobertura2;
 	private List<ZonaDeCobertura> zonas,resultadoZonas;
 	@Before
 	public void setUp() throws Exception {
-		nivelDeVerificacion = mock(NivelDeVerificacion.class);
-		nivelDeVerificacionBajo = new NivelDeVerificacionBajo();
 		tipoDeUsuario = mock(TipoDeUsuario.class);
 		fechaVerificacion = LocalDate.now();
 		otraFecha = LocalDate.of(2018, 12, 12);
@@ -46,12 +43,16 @@ public class MuestraTestCase {
 		usuario2 = mock(Usuario.class);
 		usuario3 = mock(Usuario.class);
 		verificacion  = mock(Verificacion.class);
-		muestra1 = new Muestra("a",ubicacion,usuario1,verificacion,nivelDeVerificacion);
+		when(verificacion.getUsuarioVerificacion()).thenReturn(usuario1);
+		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
+		
+		muestra1 = new Muestra("a",ubicacion,usuario1,verificacion);
 		verificacion2 = mock(Verificacion.class);
 		verificacion3 = new Verificacion("a",usuario1,fechaVerificacion);
 		verificacion4 = mock(Verificacion.class);
-		muestra2 = new Muestra("a",ubicacion,usuario1,verificacion3,nivelDeVerificacion);
-		muestra3 = new Muestra("a",otraUbicacion,usuario1,verificacion,nivelDeVerificacionBajo);
+		muestra2 = new Muestra("a",ubicacion,usuario1,verificacion3);
+		muestra3 = new Muestra("a",otraUbicacion,usuario1,verificacion);
 		muestras = new ArrayList<>();
 		muestras.add(muestra2);
 		muestras.add(muestra3);
@@ -90,7 +91,7 @@ public class MuestraTestCase {
 	
 	@Test
 	public void testNivelDeVerificacion() {
-		assertEquals(nivelDeVerificacion,muestra1.getNivelDeVerificacion());
+	//	assertEquals(nivelDeVerificacion,muestra1.getNivelDeVerificacion());
 	}
 	
 	@Test
@@ -100,8 +101,11 @@ public class MuestraTestCase {
 	
 	@Test
 	public void testAgregarVerificacionAMuestra() {
+		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
+		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra1.agregarVerificacion(verificacion2);
-		verify(nivelDeVerificacion).agregarVerificacion(verificacion2,muestra1);
+		assertTrue(muestra1.contiene(verificacion2));
 	}
 	
 	@Test
@@ -130,7 +134,7 @@ public class MuestraTestCase {
 	public void testUsuarioVerificoEnElUltimoMes() {
 		when(verificacion2.getUsuarioVerificacion()).thenReturn(usuario2);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra3.agregarVerificacion(verificacion2);
 		when(verificacion2.getFechaVerificacion()).thenReturn(fechaVerificacion);
 		when(tipoDeUsuario.enElUltimomes(fechaVerificacion)).thenReturn(true);
@@ -148,7 +152,7 @@ public void testVerificarMuestraDeVinchucaPorUnUsuarioEspecialista() {
 		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra3.agregarVerificacion(verificacion2);
 		muestra3.agregarVerificacion(verificacion4);
 		when(verificacion.verificadorEsEspecialista()).thenReturn(false);
@@ -169,7 +173,7 @@ public void testVerificarMuestraDeVinchucaPorDosUsuariosEspecialistasQueVotaronI
 		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra3.agregarVerificacion(verificacion2);
 		muestra3.agregarVerificacion(verificacion4);
 		// Verificacion de usuario especialista
@@ -195,7 +199,7 @@ public void testVerificarMuestraDeVinchucaPorDosUsuariosEspecialistasQueNoVotaro
 		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra3.agregarVerificacion(verificacion2);
 		muestra3.agregarVerificacion(verificacion4);
 		// Verificacion de usuario especialista
@@ -231,7 +235,7 @@ public void testVerificarMuestraDeVinchucaPorDosUsuariosExpertosQueVotaronIgual(
 		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra3.agregarVerificacion(verificacion2);
 		muestra3.agregarVerificacion(verificacion4);
 		// Verificacion usuario especialista
@@ -263,7 +267,7 @@ public void testVerificarMuestraDeVinchucaPorDosUsuariosExpertosQueNoVotaronIgua
 		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra3.agregarVerificacion(verificacion2);
 		muestra3.agregarVerificacion(verificacion4);
 		// Verificacion usuarios especialistas
@@ -298,7 +302,7 @@ public void testVerificarMuestraDeVinchucaPorDosUsuariosBasicosQueVotaronIgual()
 		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra3.agregarVerificacion(verificacion2);
 		muestra3.agregarVerificacion(verificacion4);
 		when(verificacion.verificadorEsEspecialista()).thenReturn(false);
@@ -326,7 +330,7 @@ public void testVerificarMuestraDeVinchucaPorTresUsuariosBasicosQueNoVotaronIgua
 		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario2.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
 		when(usuario3.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		muestra3.agregarVerificacion(verificacion2);
 		muestra3.agregarVerificacion(verificacion4);
 		// Verificacion usuario especialista
@@ -390,7 +394,7 @@ public void testVerificarMuestraDeVinchucaPorTresUsuariosBasicosQueNoVotaronIgua
 	@Test
 	public void testFechaUltimaVerficacion() {
 		when(usuario1.getTipoDeUsuario()).thenReturn(tipoDeUsuario);
-		when(tipoDeUsuario.puntosDeUsuario()).thenReturn(1);
+		when(tipoDeUsuario.esUsuarioBasico()).thenReturn(true);
 		when(verificacion4.getUsuarioVerificacion()).thenReturn(usuario1);
 		muestra3.agregarVerificacion(verificacion3);
 		muestra3.agregarVerificacion(verificacion4);

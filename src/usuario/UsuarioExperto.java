@@ -3,10 +3,6 @@ package usuario;
 
 public class UsuarioExperto extends TipoDeUsuario {
 
-	@Override
-	public Integer puntosDeUsuario() {
-		return 3;
-	}
 
 	@Override
 	public void ascenderUsuario(Usuario usuario) {
@@ -19,5 +15,23 @@ public class UsuarioExperto extends TipoDeUsuario {
 		// TODO Auto-generated method stub
 		TipoDeUsuario usuarioBasico = new UsuarioBasico();
 		usuario.setTipoDeUsuario(usuarioBasico);
+	}
+
+	@Override
+	public Boolean esUsuarioBasico() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Boolean esUsuarioExperto() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public Boolean esUsuarioEspecialista() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

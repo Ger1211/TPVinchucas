@@ -17,12 +17,14 @@ public class UsuarioBasicoTestCase {
 		usuarioBasico = new UsuarioBasico();
 		usuario = new Usuario("German",usuarioBasico);
 	}
-
-	@Test
-	public void testUsuarioBasicoPuntosDeUsuario() {
-		assertEquals(1,usuarioBasico.puntosDeUsuario(),0);
-	}
 	
+	@Test
+	public void testUnUsuarioEsBasico() {
+		assertTrue(usuarioBasico.esUsuarioBasico());
+		assertFalse(usuarioBasico.esUsuarioExperto());
+		assertFalse(usuarioBasico.esUsuarioEspecialista());
+	}
+
 	@Test
 	public void testAscenderUsuarioBasico() {
 		usuario.ascenderUsuario();
@@ -34,5 +36,6 @@ public class UsuarioBasicoTestCase {
 		usuario.descenderUsuario();
 		assertTrue(usuario.getTipoDeUsuario().getClass().equals(usuarioBasico.getClass()));
 	}
+	
 
 }

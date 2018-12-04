@@ -14,7 +14,6 @@ import muestra.Muestra;
 public class OperaradoresLogicosTestCase {
 	private Filtro criterio1,criterio2;
 	private OperadorLogico and,or;
-	private List<Filtro> filtros;
 	private List<Muestra> muestras,resultadoAnd,resultadoOr,listaCriterio1,listaCriterio2;
 	private Muestra muestra1,muestra2,muestra3;
 	
@@ -22,11 +21,8 @@ public class OperaradoresLogicosTestCase {
 	public void setUp() throws Exception {
 		criterio1 = mock(CriterioNivelDeValidacion.class);
 		criterio2 = mock(CriterioTipoDeMuestraDetectado.class);
-		filtros = new ArrayList<>();
-		filtros.add(criterio1);
-		filtros.add(criterio2);
-		and = new And(filtros);
-		or = new Or(filtros); 
+		and = new And(criterio1,criterio2);
+		or = new Or(criterio1,criterio2); 
 		muestra1 = mock(Muestra.class);
 		muestra2 = mock(Muestra.class);
 		muestra3 = mock(Muestra.class);
@@ -45,8 +41,10 @@ public class OperaradoresLogicosTestCase {
 
 	@Test
 	public void testFiltroAndOr() {
-		assertEquals(filtros,and.getOperadores());
-		assertEquals(filtros,or.getOperadores());
+		assertEquals(criterio1,and.getFiltro1());
+		assertEquals(criterio1,or.getFiltro1());
+		assertEquals(criterio2,and.getFiltro2());
+		assertEquals(criterio2,or.getFiltro2());
 	}
 	
 	@Test

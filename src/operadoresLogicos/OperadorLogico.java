@@ -1,18 +1,20 @@
 package operadoresLogicos;
 
-import java.util.List;
-
-
 public abstract class OperadorLogico extends Filtro {
 	
-		protected List<Filtro> operadores;
+		protected Filtro filtro1;
+		protected Filtro filtro2;
 		
-		public OperadorLogico(List<Filtro> operadores) {
-			this.operadores = operadores;
+		public OperadorLogico(Filtro filtro1,Filtro filtro2) {
+			this.filtro1 = filtro1;
+			this.filtro2 = filtro2;
 		}
 		
-		public List<Filtro> getOperadores() {
-			return this.operadores;
+		public Filtro getFiltro1() {
+			return this.filtro1;
 		}
-			
+		
+		public Filtro getFiltro2() {
+			return this.filtro2;
+		}
 }

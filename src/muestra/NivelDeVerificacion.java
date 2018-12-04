@@ -3,7 +3,7 @@ package muestra;
 
 public interface  NivelDeVerificacion {
 
-	public void agregarVerificacion(Verificacion verificacion, Muestra muestra);
+	public void actualizarNivelDeVerificacion(Verificacion verificacion, Muestra muestra);
 
 	
 
