@@ -16,6 +16,8 @@ public class Muestra {
 	 *  c = Phtia-Chinche
 	 *  d = Ninguna
 	 *  e = Imagen poco clara
+	 *  
+	 *  Ejemplos
 	 */
 
 	private String tipoMuestra;
