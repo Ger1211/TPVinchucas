@@ -15,7 +15,6 @@ public class CriterioTipoDeMuestraDetectado extends CriterioBusqueda {
 	
 	@Override
 	public List<Muestra> filtrarPorCriterio(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		return muestras.stream().filter(muestra -> muestra.verificar().equals(this.criterio)).collect(Collectors.toList());
 	}
 

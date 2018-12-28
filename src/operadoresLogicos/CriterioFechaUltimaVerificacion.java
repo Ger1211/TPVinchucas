@@ -16,7 +16,6 @@ public class CriterioFechaUltimaVerificacion extends CriterioBusqueda {
 	
 	@Override
 	public List<Muestra> filtrarPorCriterio(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		return muestras.stream().filter(muestra -> (muestra.getFechaUltimaVerificacion().isBefore(this.criterio))).collect(Collectors.toList());
 	}
 

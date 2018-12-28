@@ -15,8 +15,6 @@ public class CriterioFechaCreacionMuestra extends CriterioBusqueda {
 		}
 
 	public List<Muestra> filtrarPorCriterio( List<Muestra> muestras) {
-		// TODO Auto-generated method stub
-		
 		return muestras.stream().filter(muestra -> muestra.getFechaCreacion().equals(this.criterio)).collect(Collectors.toList());
 	}
 	

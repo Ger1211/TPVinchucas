@@ -18,15 +18,12 @@ public class Sistema {
 	}
 
 	public void enviarMuestraAlSistema(Muestra muestra) {
-		// TODO Auto-generated method stub
-		// Agregado de zonas de cobertura y aviso de nueva muestra en el sistema
 		muestra.agregarMisZonasDeCobertura(this.zonasDeCobertura);
 		muestra.notificarAMisZonas();
 		this.muestras.add(muestra);
 	}
 
 	public List<Muestra> getMuestras() {
-		// TODO Auto-generated method stub
 		return this.muestras;
 	}
 	

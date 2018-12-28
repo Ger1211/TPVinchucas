@@ -16,7 +16,6 @@ public class CriterioNivelDeValidacion extends CriterioBusqueda {
 	
 	@Override
 	public List<Muestra> filtrarPorCriterio(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		return muestras.stream().filter(muestra -> muestra.getNivelDeVerificacion().equals(this.criterio)).collect(Collectors.toList());
 	}
 

@@ -14,7 +14,6 @@ public class Or extends OperadorLogico {
 
 	@Override
 	public List<Muestra> filtrarPorCriterio(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		List<Muestra> listaFiltro1 = this.filtro1.filtrarPorCriterio(muestras);
 		List<Muestra> listaFiltro2 = this.filtro2.filtrarPorCriterio(muestras);
 		listaFiltro1.addAll(listaFiltro2);

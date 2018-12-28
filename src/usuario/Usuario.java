@@ -13,29 +13,24 @@ public class Usuario {
 	private TipoDeUsuario tipoDeUsuario;
 
 	public Usuario(String alias, TipoDeUsuario tipoDeUsuario) {
-		// TODO Auto-generated constructor stub
 		this.alias = alias;
 		this.tipoDeUsuario = tipoDeUsuario;
 	
 	}
 
 	public String getAlias() {
-		// TODO Auto-generated method stub
 		return this.alias;
 	}
 
 	public TipoDeUsuario getTipoDeUsuario() {
-		// TODO Auto-generated method stub
 		return this.tipoDeUsuario;
 	}
 
 	public void setTipoDeUsuario(TipoDeUsuario tipoDeUsuario) {
-		// TODO Auto-generated method stub
 		this.tipoDeUsuario = tipoDeUsuario;
 	}
 
 	public void enviarMuestra(Muestra muestra,Sistema sistema) {
-		// TODO Auto-generated method stub
 		sistema.enviarMuestraAlSistema(muestra);
 		this.tipoDeUsuario.verificacionAscensoODescensoDeRango(this,sistema.getMuestras());
 	}
@@ -43,7 +38,6 @@ public class Usuario {
 	
 
 	public void verificarMuestra(Verificacion verificacion,Muestra muestra,List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		if(muestra.usuarioNoVerifico(this)) {
 		muestra.agregarVerificacion(verificacion);
 		this.tipoDeUsuario.verificacionAscensoODescensoDeRango(this,muestras);;
@@ -52,32 +46,26 @@ public class Usuario {
 	
 
 	public Integer cantidadDeEnvios(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		return this.tipoDeUsuario.cantidadDeEnvios(this,muestras);
 	}
 
 	public Integer cantidadDeRevisiones(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		return this.tipoDeUsuario.cantidadDeRevisiones(this, muestras);
 	}
 
 	public void ascenderUsuario() {
-		// TODO Auto-generated method stub
 		this.tipoDeUsuario.ascenderUsuario(this);
 	}
 
 	public void descenderUsuario() {
-		// TODO Auto-generated method stub
 		this.tipoDeUsuario.descenderUsuario(this);
 	}
 
 	public Boolean verificacionEnvios(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		return this.cantidadDeEnvios(muestras)>10;
 	}
 
 	public Boolean verificacionRevisiones(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		return this.cantidadDeRevisiones(muestras)>20;
 	}
 

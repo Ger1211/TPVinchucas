@@ -16,7 +16,6 @@ public abstract class TipoDeUsuario {
 
 
 	public Integer cantidadDeEnvios(Usuario usuario, List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		Integer resultado = 0;
 			for(Muestra muestra : muestras) {
 				Verificacion verificacionEnvio = muestra.getVerificaciones().get(0);
@@ -30,19 +29,19 @@ public abstract class TipoDeUsuario {
 	}
 
 	public Boolean enElUltimomes(LocalDate fechaVerificacion) {
-		// TODO Auto-generated method stub
 		LocalDate hoy = LocalDate.now();
 		Period periodo = Period.between(hoy, fechaVerificacion);
+		return esPeriodoMenorAElMaximoDeDiasEnUnMes(periodo);
+	}
+	private boolean esPeriodoMenorAElMaximoDeDiasEnUnMes(Period periodo) {
 		return periodo.getMonths()<31;
 	}
 
 	private Boolean usuarioEnvioMuestra(Usuario usuario, Muestra muestra) {
-		// TODO Auto-generated method stub
 		return muestra.usuarioEnvioMuestra(usuario);
 	}
 
 	public Integer cantidadDeRevisiones(Usuario usuario, List<Muestra> muestras) {
-		// TODO Auto-generated method stub
 		Integer resultado = 0;
 		for(Muestra muestra : muestras) {
 			if(this.usuarioVerificoMuestraEnElUltimoMes(usuario,muestra)) {

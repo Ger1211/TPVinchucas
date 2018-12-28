@@ -4,8 +4,7 @@ public class NivelDeVerificacionBajo implements NivelDeVerificacion {
 
 	@Override
 	public void actualizarNivelDeVerificacion(Verificacion verificacion, Muestra muestra) {
-		// TODO Auto-generated method stub
-		if(verificacion.getUsuarioVerificacion().getTipoDeUsuario().esUsuarioBasico()) {
+		if(esVerificadoPorUnUsuarioBasico(verificacion)) {
 			NivelDeVerificacionMedio nivelDeVerificacionMedio = new NivelDeVerificacionMedio();
 			muestra.setNivelDeVerificacion(nivelDeVerificacionMedio);
 		}
@@ -14,6 +13,10 @@ public class NivelDeVerificacionBajo implements NivelDeVerificacion {
 			muestra.setNivelDeVerificacion(nivelDeVerificacionAlto);
 		}
 		
+	}
+
+	private Boolean esVerificadoPorUnUsuarioBasico(Verificacion verificacion) {
+		return verificacion.getUsuarioVerificacion().getTipoDeUsuario().esUsuarioBasico();
 	}
 
 

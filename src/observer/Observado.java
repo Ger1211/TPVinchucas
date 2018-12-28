@@ -9,13 +9,11 @@ public abstract class Observado {
 		protected List<Observador> observadores = new ArrayList<>();
 		
 		public void agregarObservador(Observador observador) {
-			// TODO Auto-generated method stub
 			this.observadores.add(observador);
 		}
 
 
 		public void eliminarObservador(Observador observador) {
-			// TODO Auto-generated method stub
 			this.observadores.remove(observador);
 		}
 

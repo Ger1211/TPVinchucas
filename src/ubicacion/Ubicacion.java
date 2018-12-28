@@ -14,29 +14,24 @@ public class Ubicacion {
 	}
 
 	public Ubicacion(Double latitud, Double longitud) {
-		// TODO Auto-generated constructor stub
 		this.latitud = latitud;
 		this.longitud = longitud;
 	}
 
 	public Double getLatitud() {
-		// TODO Auto-generated method stub
 		return this.latitud;
 	}
 
 	public Double getLongitud() {
-		// TODO Auto-generated method stub
 		return this.longitud;
 	}
 
 	public Double distanciaHasta(Ubicacion ubicacion) {
-		// TODO Auto-generated method stub
 		return this.distanciaCoord(this.getLatitud(),this.getLongitud(),ubicacion.getLatitud(),ubicacion.getLongitud());
 	}
 
 	private Double distanciaCoord(Double latitud1, Double longitud1, Double latitud2, Double longitud2) {
-		// TODO Auto-generated method stub
-		Double radioTierra = 6371d;//en kilómetros  
+		Double radioTierra = 6371d;//en kilï¿½metros  
         Double dLat = Math.toRadians(latitud2 - latitud1);  
         Double dLng = Math.toRadians(longitud2 - longitud1);  
         Double sindLat = Math.sin(dLat / 2);  
@@ -49,7 +44,6 @@ public class Ubicacion {
 	}
 
 	public List<Ubicacion> getUbicacionesAMenosDe(Double kilometros, List<Ubicacion> ubicaciones) {
-		// TODO Auto-generated method stub
 		ArrayList<Ubicacion> resultado = new ArrayList<>();
 		for(Ubicacion ubicacion: ubicaciones) {
 			if (this.ubicacionEstaAMenosDe(kilometros, ubicacion)) {
